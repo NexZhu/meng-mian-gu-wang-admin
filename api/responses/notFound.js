@@ -72,5 +72,5 @@ module.exports = function notFound(data, options) {
 
   // If no second argument provided, try to serve the default view,
   // but fall back to sending JSON(P) if any errors occur.
-  else return view.render('../../views/404', {name: 'Nex'}, res)
+  else return view.render('404', {name: 'Nex'}, res)
 }
