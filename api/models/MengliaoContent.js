@@ -1,20 +1,20 @@
 /**
- * User.js
+ * MengliaoContent.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
 module.exports = {
-  tableName: '用户',
+  tableName: '涨讯内容',
   attributes: {
-    name: {
+    content: {
       type: 'string',
-      columnName: '昵称',
+      columnName: '内容',
     },
-    mengliaos: {
-      collection: 'mengliao',
-      via: 'author',
+    mengliao: {
+      model: 'mengliao',
+      columnName: '涨讯ID',
     },
   },
 }

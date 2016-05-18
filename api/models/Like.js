@@ -1,20 +1,16 @@
 /**
- * User.js
+ * Like.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
 module.exports = {
-  tableName: '用户',
+  tableName: '赞',
   attributes: {
-    name: {
-      type: 'string',
-      columnName: '昵称',
+    mengliao: {
+      model: 'mengliao',
+      columnName: '涨讯ID',
     },
-    mengliaos: {
-      collection: 'mengliao',
-      via: 'author',
-    },
-  },
+  }
 }
