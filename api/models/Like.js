@@ -8,6 +8,10 @@
 module.exports = {
   tableName: '赞',
   attributes: {
+    user: {
+      model: 'user',
+      columnName: '点赞人',
+    },
     mengliao: {
       model: 'mengliao',
       columnName: '涨讯ID',
