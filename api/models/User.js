@@ -16,5 +16,13 @@ module.exports = {
       collection: 'mengliao',
       via: 'author',
     },
+    following: {
+      collection: 'follow',
+      via: 'follower',
+    },
+    follower: {
+      collection: 'follow',
+      via: 'user',
+    },
   },
 }
