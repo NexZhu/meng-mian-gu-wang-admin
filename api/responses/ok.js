@@ -11,7 +11,7 @@
  *          - pass string to render specified view
  */
 
-let view = require('lib/view-renderer')
+const view = require('lib/view-manager')
 
 module.exports = function sendOK(data, options) {
 

@@ -13,7 +13,7 @@ require('app-module-path').addPath(require('path').resolve(__dirname, '..'))
 
 module.exports.bootstrap = function bootstrap(cb) {
 
-  require('lib/view-renderer')
+  require('lib/view-manager')
 
   // It's very important to trigger this callback method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)

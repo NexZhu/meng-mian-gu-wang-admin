@@ -1,5 +1,5 @@
 {
-  "name": "view-renderer",
+  "name": "view-manager",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

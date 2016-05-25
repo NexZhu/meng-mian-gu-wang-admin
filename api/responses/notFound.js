@@ -17,7 +17,7 @@
  * automatically.
  */
 
-let view = require('lib/view-renderer')
+const view = require('lib/view-manager')
 
 module.exports = function notFound(data, options) {
 
