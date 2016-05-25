@@ -14,18 +14,7 @@
 	</head>
 	<body>
 		<div class="mengmianguwang">
-			<div class="fixed">
-				<iframe id="iframe" src="/html/top/header.html" scrolling="no" width="100%" style="border:0" ;></iframe>
-				<script>
-					$('#iframe').load(function() {
-						var ul = $('#iframe').contents().find("#ul li");
-						ul.eq(0).attr("class", "add");
-					});
-				</script>
-				<div class="xitong">
-					<h2>蒙面股王后台管理系统--<span id="add-text">内容设置</span></h2>
-				</div>
-			</div>
+		  <include('./header.marko') module='${data.module}' />
 			<section class="section">
 			 <div class="mengliaoguanli">
 			   <include(data.sideBar) selected='${data.selected}' />
@@ -34,35 +23,35 @@
 		 		 		<div class="search">
 		 		 			<div class="sousuo">
 					             <input type="search" class="text" placeholder="输入昵称、关键词等" />
-					             <input type="submit" class="buttom" value="搜索" style='margin-left: 5px' />
+					             <input type="submit" class="buttom" value="搜索" />
 							</div>
 		 		 		</div>
 		 		 		<div class="mengliao_info clear">
 		 		 		  <div class="mengliao_ul">
-		 		 			<ul class="mengliao_nav">
-		 		 				<li>发布者</li>
-		 		 				<li>发布时间</li>
-		 		 				<li>点赞数</li>
-		 		 				<li>评论数</li>
-		 		 				<li class="neirong">内容概要</li>
-		 		 				<li>操作</li>
-		 		 			</ul>
-              <ul for(m in data.mengliaos) class="mengliao_list">
-		 		 				<a href="mengliao_xiangqing.html">
-		 		 				<li>${m.author.name}</li>
-		 		 				<!--li><span>2016/4/30</span>&nbsp;&nbsp;<span>11:50</span></li-->
-		 		 				<li><span>${m.time.toDateString()}</span></li>
-		 		 				<li>${m.nLike}</li>
-		 		 				<li>${m.nComment}</li>
-		 		 				<li if(m.contents.length) class="neirong">
-		 		 				  ${m.contents[0].content}
-		 		 				</li>
-		 		 				<li>
-		 		 					<span><a href="/content/mengliao/detail?id=${m.id}">详情</a></span>&nbsp;
-		 		 					<a href='/content/mengliao/delete?id=${m.id}'><span class="remove publics">删除</span></a>
-		 		 				</li>
-		 		 			  </a>
-		 		 			</ul>
+                <ul class="mengliao_nav">
+                  <li>发布者</li>
+                  <li>发布时间</li>
+                  <li>点赞数</li>
+                  <li>评论数</li>
+                  <li class="neirong">内容概要</li>
+                  <li>操作</li>
+                </ul>
+                <ul for(m in data.mengliaos) class="mengliao_list">
+                  <a href="/content/mengliao/detail?id=${m.id}">
+                  <li>${m.author.name}</li>
+                  <!--li><span>2016/4/30</span>&nbsp;&nbsp;<span>11:50</span></li-->
+                  <li><span>${m.time.toDateString()}</span></li>
+                  <li>${m.nLike}</li>
+                  <li>${m.nComment}</li>
+                  <li if(m.contents.length) class="neirong">
+                    ${m.contents[0].content}
+                  </li>
+                  <li>
+                    <span><a href="/content/mengliao/detail?id=${m.id}">详情</a></span>&nbsp;
+                    <a href='/content/mengliao/delete?id=${m.id}'><span class="remove publics">删除</span></a>
+                  </li>
+                  </a>
+                </ul>
 		 		 			</div>
 
 		 		 			<div class="tiaozhuan">

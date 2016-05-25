@@ -8,6 +8,7 @@
 const view = require('lib/view-manager')
 
 const
+  mod      = 0,
   sideBar  = view.template('content-side-bar'),
   selected = 'mengliaoguanli'
 
@@ -15,21 +16,30 @@ module.exports = {
   list: function list(req, res) {
     Mengliao.find({}).populate('author').then(mengliaos => {
       async.map(mengliaos, populateMengliaoList, (err, mengliaos) => {
-        res.ok({mengliaos, sideBar, selected}, {view: 'mengliaoguanli'})
+        res.ok({
+          mengliaos,
+          module: mod,
+          sideBar,
+          selected
+        }, {view: 'mengliaoguanli'})
       })
     })
   },
   detail: function detail(req, res) {
-    let id = req.param('id')
+    const id = req.param('id')
     Mengliao.findOne({id}).populate('author').then(m => {
-      populateMengliao(m, true, (err, m) => {
-        console.log(m)
-        res.ok({mengliao: m, sideBar, selected}, {view: 'mengliao_xiangqing'})
+      populateMengliao(m, true, (err, mengliao) => {
+        res.ok({
+          mengliao,
+          module: mod,
+          sideBar,
+          selected,
+        }, {view: 'mengliao_xiangqing'})
       })
     })
   },
   delete: function list(req, res) {
-    let id = req.param('id')
+    const id = req.param('id')
     async.parallel([
       cb => MengliaoContent.destroy({mengliao: id}).then(cb),
       cb => Like.destroy({mengliao: id}).then(cb),
