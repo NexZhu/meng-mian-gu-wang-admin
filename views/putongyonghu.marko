@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+    <!--STYLES-->
+    <link rel="stylesheet" href="/styles/reset.css">
+    <link rel="stylesheet" href="/styles/guwang.css">
+    <!--STYLES END-->
+    <!--SCRIPTS-->
+    <script src="/js/dependencies/sails.io.js"></script>
+    <script src="/js/dependencies/jquery-1.11.0.js"></script>
+    <!--SCRIPTS END-->
+		<title>蒙面股王后台管理系统</title>
+	</head>
+	<body>
+		<div class="mengmianguwang">
+			<include('./header.marko') module='${data.module}' />
+			<section class="section">
+			 <div class="mengliaoguanli">
+			   <include(data.sideBar) selected='${data.selected}' />
+		 		 <div class="content">
+		 		 	<div class="mengliao">
+		 		 		<div class="select">
+		 		 		<div>
+		 		 			<span>状态</span>
+		 		 			<select name="">
+		 		 				<option value="">全部</option>
+		 		 				<option value="">正常</option>
+		 		 				<option value="">禁言</option>
+		 		 			</select>
+		 		 		</div>
+		 		 		<div>
+		 		 			<span>性别</span>
+		 		 			<select name="">
+		 		 				<option value="">全部</option>
+		 		 				<option value="">正常</option>
+		 		 				<option value="">禁言</option>
+		 		 			</select>
+		 		 		</div>
+		 		 		<div>
+		 		 			<span>来源</span>
+		 		 			<select name="">
+		 		 				<option value="">全部</option>
+		 		 				<option value="">正常</option>
+		 		 				<option value="">禁言</option>
+		 		 			</select>
+		 		 		</div>
+		 		 		</div>
+		 		 		<div class="search">
+		 		 			<div class="sousuo">
+					             <input type="search" class="text" placeholder="输入昵称、关键词等"/>
+					             <input type="submit" class="buttom" value="搜索" />
+							</div>
+		 		 		</div>
+		 		 		<div class="mengliao_info clear">
+		 		 		  <div class="mengliao_ul">
+                <ul class="putongyonghu_nav">
+                  <li class="nickname">昵称</li>
+                  <li>来源</li>
+                  <li>opendid</li>
+                  <li>unionid</li>
+                  <li>性别</li>
+                  <li>地区</li>
+                  <li>状态</li>
+                  <li>操作</li>
+                </ul>
+                <ul for(u in data.users) class="putongyonghu_list">
+                  <a href="/user/detail?id=${u.id}">
+                  <li class="nickname">${u.name ? u.name : '无'}</li>
+                  <!-- TODO: 来源？ -->
+                  <li>微信</li>
+                  <!-- TODO: opendid？ -->
+                  <li>4515848748</li>
+                  <!-- TODO: unionid？ -->
+                  <li>03599441548</li>
+                  <li>${u.gender}</li>
+                  <!-- TODO: 位置？ -->
+                  <li>北京</li>
+                  <!-- TODO: 状态？ -->
+                  <li>正常</li>
+                  <li>
+                    <span><a href="/user/detail?id=${u.id}">详情</a></span>&nbsp;
+                    <!-- TODO: 禁言？ -->
+                    <span class="banned publics">禁言</span>
+                  </li>
+                  </a>
+                </ul>
+		 		 			</div>
+
+		 		 			<div class="tiaozhuan">
+								<div class="page-yeshu">
+									<span onclick="shouye()">首页</span>
+									<span onclick="prev_ye()">上一页</span>
+									<span onclick="next_ye()">下一页</span>
+									<span onclick="last_ye()">尾页</span>
+								</div>
+								<div class="ystz">
+									<form action="#">
+										<input id="dangqianye" type="text" class="tiaozhuanyeshu" />
+										<span id="zongyeshu"></span>
+									</form>
+									<span class="tiaozhuan-btn" onclick="go_to()">跳转</span>
+								</div>
+							</div>
+
+		 		 		</div>
+		 		 	</div>
+
+		 		 </div>
+			 </div>
+			</section>
+			<footer class="footer" >
+				 Copyright © 2016  蒙面股王
+		  </footer>
+		</div>
+	</body>
+</html>
+
+<script>
+
+    /*删除list*/
+   $(".banned").click(function(){
+   	   alert("被禁言！")
+   })
+
+  /*跳转页面*/
+		function shouye() {
+			alert("首页");
+		};
+		function prev_ye() {
+			alert("上一页");
+		};
+
+		function next_ye() {
+			alert("下一页");
+		};
+		function last_ye() {
+			alert("最后一页");
+		};
+
+		function go_to() {
+			alert("跳转");
+		};
+	</script>
