@@ -7,7 +7,13 @@ function create(__helpers) {
       escapeXmlAttr = __helpers.xa;
 
   return function render(data, out) {
-    out.w("<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><link rel=\"stylesheet\" href=\"/styles/reset.css\"> <link rel=\"stylesheet\" href=\"/styles/guwang.css\"> <script src=\"/js/dependencies/sails.io.js\"></script> <script src=\"/js/dependencies/jquery-1.11.0.js\"></script> <title>蒙面股王后台管理系统</title></head><body><div class=\"mengmianguwang\"><div class=\"fixed\"><iframe id=\"iframe\" src=\"/html/top/header.html\" scrolling=\"no\" width=\"100%\" style=\"border:0\" ;></iframe><script>\n\t\t\t\t\t$('#iframe').load(function() {\n\t\t\t\t\t\tvar ul = $('#iframe').contents().find(\"#ul li\");\n\t\t\t\t\t\tul.eq(0).attr(\"class\", \"add\");\n\t\t\t\t\t});\n\t\t\t\t</script><div class=\"xitong\"><h2>蒙面股王后台管理系统--<span id=\"add-text\">内容设置</span></h2></div></div><section class=\"section\"><div class=\"mengliaoguanli\"><div class=\"side-bar\"><div><a href=\"mengliaoguanli.html\" style=\"color:#333;\">猛料管理</a></div><div><a href=\"jubaoguanli.html\">举报管理</a></div></div><div class=\"content\"><div class=\"mengliao\"><div class=\"search\"><div class=\"sousuo\"><input type=\"search\" class=\"text\" placeholder=\"输入昵称、关键词等\"><input type=\"submit\" class=\"buttom\" value=\"搜索\" style=\"margin-left: 5px\"></div></div><div class=\"mengliao_info clear\"><div class=\"mengliao_ul\"><ul class=\"mengliao_nav\"><li>发布者</li><li>发布时间</li><li>点赞数</li><li>评论数</li><li class=\"neirong\">内容概要</li><li>操作</li></ul>");
+    out.w("<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><link rel=\"stylesheet\" href=\"/styles/reset.css\"> <link rel=\"stylesheet\" href=\"/styles/guwang.css\"> <script src=\"/js/dependencies/sails.io.js\"></script> <script src=\"/js/dependencies/jquery-1.11.0.js\"></script> <title>蒙面股王后台管理系统</title></head><body><div class=\"mengmianguwang\"><div class=\"fixed\"><iframe id=\"iframe\" src=\"/html/top/header.html\" scrolling=\"no\" width=\"100%\" style=\"border:0\" ;></iframe><script>\n\t\t\t\t\t$('#iframe').load(function() {\n\t\t\t\t\t\tvar ul = $('#iframe').contents().find(\"#ul li\");\n\t\t\t\t\t\tul.eq(0).attr(\"class\", \"add\");\n\t\t\t\t\t});\n\t\t\t\t</script><div class=\"xitong\"><h2>蒙面股王后台管理系统--<span id=\"add-text\">内容设置</span></h2></div></div><section class=\"section\"><div class=\"mengliaoguanli\">");
+
+    data.sideBar.render({
+        selected: data.selected
+      }, out);
+
+    out.w("<div class=\"content\"><div class=\"mengliao\"><div class=\"search\"><div class=\"sousuo\"><input type=\"search\" class=\"text\" placeholder=\"输入昵称、关键词等\"><input type=\"submit\" class=\"buttom\" value=\"搜索\" style=\"margin-left: 5px\"></div></div><div class=\"mengliao_info clear\"><div class=\"mengliao_ul\"><ul class=\"mengliao_nav\"><li>发布者</li><li>发布时间</li><li>点赞数</li><li>评论数</li><li class=\"neirong\">内容概要</li><li>操作</li></ul>");
 
     forEach(data.mengliaos, function(m) {
       out.w("<ul class=\"mengliao_list\"><a href=\"mengliao_xiangqing.html\"><li>" +
@@ -26,7 +32,9 @@ function create(__helpers) {
           "</li>");
       }
 
-      out.w("<li><span><a href=\"mengliao_xiangqing.html\">详情</a></span>&nbsp; <a href=\"/content/mengliao/delete?id=" +
+      out.w("<li><span><a href=\"/content/mengliao/detail?id=" +
+        escapeXmlAttr(m.id) +
+        "\">详情</a></span>&nbsp; <a href=\"/content/mengliao/delete?id=" +
         escapeXmlAttr(m.id) +
         "\"><span class=\"remove publics\">删除</span></a></li></a></ul>");
     });

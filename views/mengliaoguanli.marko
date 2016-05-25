@@ -28,10 +28,7 @@
 			</div>
 			<section class="section">
 			 <div class="mengliaoguanli">
-				 <div class="side-bar">
-					<div><a href="mengliaoguanli.html" style="color:#333;">猛料管理</a></div>
-					<div><a href="jubaoguanli.html" >举报管理</a></div>
-		 		 </div>
+			   <include(data.sideBar) selected='${data.selected}' />
 		 		 <div class="content">
 		 		 	<div class="mengliao">
 		 		 		<div class="search">
@@ -61,7 +58,7 @@
 		 		 				  ${m.contents[0].content}
 		 		 				</li>
 		 		 				<li>
-		 		 					<span><a href="mengliao_xiangqing.html">详情</a></span>&nbsp;
+		 		 					<span><a href="/content/mengliao/detail?id=${m.id}">详情</a></span>&nbsp;
 		 		 					<a href='/content/mengliao/delete?id=${m.id}'><span class="remove publics">删除</span></a>
 		 		 				</li>
 		 		 			  </a>
