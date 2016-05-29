@@ -32,5 +32,9 @@ module.exports = {
       collection: 'comment',
       via: 'mengliao',
     },
+    relatedLinks: {
+      collection: 'relatedLink',
+      via: 'mengliao',
+    },
   },
 }

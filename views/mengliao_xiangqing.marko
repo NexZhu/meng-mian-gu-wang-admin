@@ -55,10 +55,10 @@
 		 		 			    </for>
 		 		 			  </div>
 		 		 			  <div class="friendlink">
-		 		 			  	 <h4>相关链接</h4>
-		 		 			  	 <!-- TODO: 相关连接？-->
-		 		 			  	 <a href="#">为什么光头跑步速度更快？</a>
-		 		 			  	 <a href="#">谁愿意来拯救废墟中的湖人？</a>
+                  <h4>相关链接</h4>
+                  <for(r in m.relatedLinks)>
+                    <a href="${r.url}">${r.title}</a>
+                  </for>
 		 		 			  </div>
 
 		 		 			</div>

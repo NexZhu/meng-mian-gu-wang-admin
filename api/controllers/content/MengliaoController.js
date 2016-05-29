@@ -60,6 +60,7 @@ function populateMengliao(m, detail, cb) {
     ...(detail ? [
       parallelTask(cb, () => Mengliao.count({author: m.author.id})),
       parallelTask(cb, () => Follow.count({user: m.author.id})),
+      parallelTask(cb, () => RelatedLink.find({mengliao: m.id})),
     ] : []),
   ], (err, results) => {
     cb(null, Object.assign({}, m, {
@@ -69,6 +70,7 @@ function populateMengliao(m, detail, cb) {
     }, detail ? {
       nMengliao: results[3],
       nFollower: results[4],
+      relatedLinks: results[5],
     } : {}))
   })
 }
