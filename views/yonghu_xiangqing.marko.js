@@ -8,10 +8,10 @@ function create(__helpers) {
       attr = __helpers.a;
 
   return function render(data, out) {
-    out.w("<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><link rel=\"stylesheet\" href=\"/styles/reset.css\"><link rel=\"stylesheet\" href=\"/styles/guwang.css\"><script src=\"/js/dependencies/sails.io.js\"></script><script src=\"/js/dependencies/jquery-1.11.0.js\"></script><title>蒙面股王后台管理系统</title></head><body><div class=\"mengmianguwang\">");
+    out.w("<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><link rel=\"stylesheet\" href=\"/styles/reset.css\"> <link rel=\"stylesheet\" href=\"/styles/guwang.css\"> <script src=\"/js/dependencies/sails.io.js\"></script> <script src=\"/js/dependencies/jquery-1.11.0.js\"></script> <title>蒙面股王后台管理系统</title></head><body><div class=\"mengmianguwang\">");
 
     __header.render({
-        title: data.title
+        module: data.module
       }, out);
 
     out.w("<section class=\"section\"><div class=\"mengliaoguanli\">");
@@ -30,7 +30,15 @@ function create(__helpers) {
       escapeXml(u.name) +
       "</span></p><p>性别：<span>" +
       escapeXml(u.gender) +
-      "</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;地区：<span>北京</span></p><p>来源：<span>微信</span>&nbsp;&nbsp;状态：<span>正常</span></p><p>opendid：<span>5455454555</span>&nbsp;&nbsp;unionid：<span>125454574</span></p><p>关联扑克牌：<span>无</span></p></div><div class=\"tas clear\"><h3>其他信息</h3><div class=\"xian\"></div><div class=\"rests\"><div class=\"ta\"><span class=\"gz\">TA关注的人</span><span class=\"rs\"><a href=\"putongyonghu_xiangqing_guanzhu.html\">" +
+      "</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;地区：<span>无</span></p><p>来源：<span>" +
+      escapeXml(u.qq ? "QQ" : u.wechat ? "微信" : "手机") +
+      "</span>&nbsp;&nbsp;状态：<span>" +
+      escapeXml(u.restricted === "0" ? "禁言" : "正常") +
+      "</span></p><p>openid/手机：<span>" +
+      escapeXml((u.qq || u.wechat) || u.mobile) +
+      "</span>&nbsp;&nbsp;unionid：<span>无</span></p><p>关联扑克牌：<span>" +
+      escapeXml(u.role ? u.role.name : "无") +
+      "</span></p></div><div class=\"tas clear\"><h3>其他信息</h3><div class=\"xian\"></div><div class=\"rests\"><div class=\"ta\"><span class=\"gz\">TA关注的人</span><span class=\"rs\"><a href=\"putongyonghu_xiangqing_guanzhu.html\">" +
       escapeXml(u.nFollowing) +
       " 〉</a> </span></div><div class=\"ta\"><span class=\"gz\">TA赞过的猛料</span><span class=\"rs\"><a href=\"putongyonghu_xiangqing_mengliao.html\">" +
       escapeXml(u.nLike) +

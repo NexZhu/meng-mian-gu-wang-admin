@@ -38,20 +38,31 @@ module.exports = {
         }, {view: 'yonghu_xiangqing'})
       })
     })
-  }
+  },
+  restrict: function restricted(req, res) {
+    const
+      id         = req.param('id'),
+      restricted = req.param('restricted')
+
+    User.update({id}, {restricted: restricted}).then(u => {
+      res.redirect(req.get('referer'))
+    })
+  },
 }
 
 function populateUser(u, cb) {
   // TODO: detail
   const detail = false
   async.parallel([
+    parallelTask(cb, () => Role.findOne({user: u.id})),
     parallelTask(cb, () => Follow.count({user: u.id})),
     parallelTask(cb, () => Like.count({user: u.id})),
     ...(detail ? [] : []),
   ], (err, results) => {
     cb(null, Object.assign({}, u, {
-      nFollowing: results[0],
-      nLike: results[1],
+      role: results[0],
+      nFollowing: results[1],
+      nLike: results[2],
     }, detail ? {} : {}))
   })
 }

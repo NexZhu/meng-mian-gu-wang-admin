@@ -14,6 +14,7 @@ module.exports = {
     },
     user: {
       model: 'user',
+      unique: true,
       columnName: '用户',
     },
     avatar: {

@@ -23,7 +23,9 @@
 		 		 	  <var u=data.user/>
 		 		 		<div class="handle">
 		 		 			<span class="public"> <a href="javascript:history.back(-1)">返回</a></span>
-		 		 			<span class="banned pinglun"><a href="javascript:;">禁言</a></span>
+		 		 			<span class="banned pinglun">
+		 		 			  <a href="/user/restrict?id=${u.id}&restricted=${u.restricted === '0' ? '1' : '0'}">${u.restricted === '0' ? '解除' : '禁言'}</a>
+		 		 			</span>
 		 		 			<span class="repeal pinglun"><a href="javascript:;">撤销关联</a></span>
 		 		 		</div>
 		 		 		<div class="fabuzhe_info">
@@ -36,13 +38,10 @@
 		 		 			  <div class="head_info">
 		 		 			     <p class="names">昵称：<span>${u.name}</span></p>
 		 		 			     <!-- TODO: 地区？ -->
-		 		 			     <p>性别：<span>${u.gender}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;地区：<span>北京</span></p>
-		 		 			     <!-- TODO: 来源？状态？ -->
-		 		 			     <p>来源：<span>微信</span>&nbsp;&nbsp;状态：<span>正常</span></p>
-		 		 			     <!-- TODO: opendid? unionid? -->
-		 		 			     <p>opendid：<span>5455454555</span>&nbsp;&nbsp;unionid：<span>125454574</span></p>
-		 		 			     <!-- TODO: 关联扑克牌？ -->
-		 		 			     <p>关联扑克牌：<span>无</span></p>
+		 		 			     <p>性别：<span>${u.gender}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;地区：<span>无</span></p>
+		 		 			     <p>来源：<span>${u.qq ? 'QQ' : u.wechat ? '微信' : '手机'}</span>&nbsp;&nbsp;状态：<span>${u.restricted === '0' ? '禁言' : '正常'}</span></p>
+		 		 			     <p>openid/手机：<span>${u.qq || u.wechat || u.mobile}</span>&nbsp;&nbsp;unionid：<span>无</span></p>
+		 		 			     <p>关联扑克牌：<span>${u.role ? u.role.name : '无'}</span></p>
 		 		 			  </div>
 		 		 			<div class="tas clear">
 		 		 			<h3>其他信息</h3>

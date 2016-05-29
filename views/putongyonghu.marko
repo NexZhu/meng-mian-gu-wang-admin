@@ -57,7 +57,7 @@
                 <ul class="putongyonghu_nav">
                   <li class="nickname">昵称</li>
                   <li>来源</li>
-                  <li>opendid</li>
+                  <li>openid/手机</li>
                   <li>unionid</li>
                   <li>性别</li>
                   <li>地区</li>
@@ -67,21 +67,18 @@
                 <ul for(u in data.users) class="putongyonghu_list">
                   <a href="/user/detail?id=${u.id}">
                   <li class="nickname">${u.name ? u.name : '无'}</li>
-                  <!-- TODO: 来源？ -->
-                  <li>微信</li>
-                  <!-- TODO: opendid？ -->
-                  <li>4515848748</li>
-                  <!-- TODO: unionid？ -->
-                  <li>03599441548</li>
+                  <li>${u.qq ? 'QQ' : u.wechat ? '微信' : '手机'}</li>
+                  <li>${u.qq || u.wechat || u.mobile}</li>
+                  <li>无</li>
                   <li>${u.gender}</li>
                   <!-- TODO: 位置？ -->
-                  <li>北京</li>
-                  <!-- TODO: 状态？ -->
-                  <li>正常</li>
+                  <li>无</li>
+                  <li>${u.restricted === '0' ? '禁言' : '正常'}</li>
                   <li>
                     <span><a href="/user/detail?id=${u.id}">详情</a></span>&nbsp;
-                    <!-- TODO: 禁言？ -->
-                    <span class="banned publics">禁言</span>
+                    <a href="/user/restrict?id=${u.id}&restricted=${u.restricted === '0' ? '1' : '0'}">
+                      <span class="banned publics">${u.restricted === '0' ? '解除' : '禁言'}</span>
+                    </a>
                   </li>
                   </a>
                 </ul>
@@ -117,12 +114,6 @@
 </html>
 
 <script>
-
-    /*删除list*/
-   $(".banned").click(function(){
-   	   alert("被禁言！")
-   })
-
   /*跳转页面*/
 		function shouye() {
 			alert("首页");

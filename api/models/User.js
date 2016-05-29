@@ -20,6 +20,26 @@ module.exports = {
       type: 'string',
       columnName: '头像',
     },
+    mobile: {
+      type: 'string',
+      columnName: '手机号',
+    },
+    qq: {
+      type: 'string',
+      columnName: 'QQopenid',
+    },
+    wechat: {
+      type: 'string',
+      columnName: '微信openid',
+    },
+    restricted: {
+      type: 'string',
+      columnName: '是否禁言',
+    },
+    role: {
+      collection: 'role',
+      via: 'user',
+    },
     mengliaos: {
       collection: 'mengliao',
       via: 'author',

@@ -800,7 +800,11 @@ a {
 .putongyonghu_nav li, .putongyonghu_list li {
   float: left;
   width: 150px;
+  height: 30px;
+  line-height: 30px;
   text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .putongyonghu_nav .nickname, .putongyonghu_list .nickname {

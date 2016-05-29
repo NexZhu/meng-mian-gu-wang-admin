@@ -46,7 +46,7 @@ module.exports = {
       cb => Comment.destroy({mengliao: id}).then(cb),
     ], (err, results) => {
       Mengliao.destroy({id}).then(err => {
-        res.redirect('/content/mengliao/list')
+        res.redirect(req.get('referer'))
       })
     })
   },
