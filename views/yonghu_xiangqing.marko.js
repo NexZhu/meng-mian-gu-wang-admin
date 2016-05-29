@@ -5,6 +5,7 @@ function create(__helpers) {
       escapeXml = __helpers.x,
       loadTemplate = __helpers.l,
       __header = loadTemplate(require.resolve("./header.marko")),
+      escapeXmlAttr = __helpers.xa,
       attr = __helpers.a;
 
   return function render(data, out) {
@@ -24,7 +25,15 @@ function create(__helpers) {
 
     var u = data.user;
 
-    out.w("<div class=\"handle\"><span class=\"public\"> <a href=\"javascript:history.back(-1)\">返回</a></span><span class=\"banned pinglun\"><a href=\"javascript:;\">禁言</a></span><span class=\"repeal pinglun\"><a href=\"javascript:;\">撤销关联</a></span></div><div class=\"fabuzhe_info\"><h3>基本信息</h3><div class=\"xian\"></div><div class=\"yonghuxiangqing_info\"><div class=\"head\"><img" +
+    out.w("<div class=\"handle\"><span class=\"public\"> <a href=\"javascript:history.back(-1)\">返回</a></span><span class=\"banned pinglun\"><a href=\"/user/restrict?id=" +
+      escapeXmlAttr(u.id) +
+      "&amp;restricted=" +
+      escapeXmlAttr(u.restricted === "0" ? "1" : "0") +
+      "\">" +
+      escapeXml(u.restricted === "0" ? "解除" : "禁言") +
+      "</a></span><span class=\"repeal pinglun\"><a href=\"/user/unassign?id=" +
+      escapeXmlAttr(u.id) +
+      "\">撤销关联</a></span></div><div class=\"fabuzhe_info\"><h3>基本信息</h3><div class=\"xian\"></div><div class=\"yonghuxiangqing_info\"><div class=\"head\"><img" +
       attr("src", u.avatar) +
       " alt></div><div class=\"head_info\"><p class=\"names\">昵称：<span>" +
       escapeXml(u.name) +
@@ -42,7 +51,7 @@ function create(__helpers) {
       escapeXml(u.nFollowing) +
       " 〉</a> </span></div><div class=\"ta\"><span class=\"gz\">TA赞过的猛料</span><span class=\"rs\"><a href=\"putongyonghu_xiangqing_mengliao.html\">" +
       escapeXml(u.nLike) +
-      " 〉</a> </span></div></div></div></div></div></div></div></div></section><footer class=\"footer\">Copyright © 2016 蒙面股王</footer></div></body></html><script>\n    $(\".banned\").click(function(){\n    \talert(\"禁言\");\n    \t$(this).addClass(\"jinzhe\").text(\"禁言中\");\n    })\n\t$(\".repeal\").click(function(){\n\t\talert(\"撤销禁言\");\n\t\t$(\".banned\").removeClass(\"jinzhe\").text(\"禁言\");\n\t});\n</script>");
+      " 〉</a> </span></div></div></div></div></div></div></div></div></section><footer class=\"footer\">Copyright © 2016 蒙面股王</footer></div></body></html><script>\n</script>");
   };
 }
 

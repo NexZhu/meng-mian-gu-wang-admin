@@ -48,6 +48,12 @@ module.exports = {
       res.redirect(req.get('referer'))
     })
   },
+  unassign: function unassign(req, res) {
+    const id = req.param('id')
+    Role.update({user: id}, {user: null}).then(u => {
+      res.redirect(req.get('referer'))
+    })
+  },
 }
 
 function populateUser(u, cb) {

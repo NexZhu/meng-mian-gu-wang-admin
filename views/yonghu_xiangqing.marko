@@ -26,7 +26,7 @@
 		 		 			<span class="banned pinglun">
 		 		 			  <a href="/user/restrict?id=${u.id}&restricted=${u.restricted === '0' ? '1' : '0'}">${u.restricted === '0' ? '解除' : '禁言'}</a>
 		 		 			</span>
-		 		 			<span class="repeal pinglun"><a href="javascript:;">撤销关联</a></span>
+		 		 			<span class="repeal pinglun"><a href="/user/unassign?id=${u.id}">撤销关联</a></span>
 		 		 		</div>
 		 		 		<div class="fabuzhe_info">
 		 		 			<h3>基本信息</h3>
@@ -71,12 +71,4 @@
 	</body>
 </html>
 <script>
-    $(".banned").click(function(){
-    	alert("禁言");
-    	$(this).addClass("jinzhe").text("禁言中");
-    })
-	$(".repeal").click(function(){
-		alert("撤销禁言");
-		$(".banned").removeClass("jinzhe").text("禁言");
-	});
 </script>
