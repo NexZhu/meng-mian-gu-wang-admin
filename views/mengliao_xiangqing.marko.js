@@ -60,13 +60,13 @@ function create(__helpers) {
 
     forEach(m.relatedLinks, function(r) {
       out.w("<a" +
-        attr("href", r.utl) +
+        attr("href", r.url) +
         ">" +
         escapeXml(r.title) +
         "</a>");
     });
 
-    out.w("<a href=\"#\">为什么光头跑步速度更快？</a><a href=\"#\">谁愿意来拯救废墟中的湖人？</a></div></div></div></div></div></div></section><footer class=\"footer\">Copyright © 2016 蒙面股王</footer></div></body></html>");
+    out.w("</div></div></div></div></div></div></section><footer class=\"footer\">Copyright © 2016 蒙面股王</footer></div></body></html>");
   };
 }
 
