@@ -12,6 +12,10 @@ module.exports = {
       model: 'user',
       columnName: '发布人',
     },
+    authorRole: {
+      model: 'role',
+      columnName: '发布角色',
+    },
     time: {
       type: 'datetime',
       columnName: '更新时间',

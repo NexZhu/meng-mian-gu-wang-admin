@@ -3,12 +3,20 @@ function create(__helpers) {
       empty = __helpers.e,
       notEmpty = __helpers.ne,
       escapeXml = __helpers.x,
+      loadTemplate = __helpers.l,
+      __header = loadTemplate(require.resolve("./header.marko")),
       escapeXmlAttr = __helpers.xa,
       forEach = __helpers.f,
       attr = __helpers.a;
 
   return function render(data, out) {
-    out.w("<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><link rel=\"stylesheet\" href=\"/styles/reset.css\"> <link rel=\"stylesheet\" href=\"/styles/guwang.css\"> <script src=\"/js/dependencies/sails.io.js\"></script> <script src=\"/js/dependencies/jquery-1.11.0.js\"></script> <title>蒙面股王后台管理系统</title></head><body><div class=\"mengmianguwang\"><div class=\"fixed\"><iframe id=\"iframe\" src=\"/html/top/header.html\" scrolling=\"no\" width=\"100%\" style=\"border:0\" ;></iframe><script>\n\t\t\t\t\t$('#iframe').load(function() {\n\t\t\t\t\t\tvar ul = $('#iframe').contents().find(\"#ul li\");\n\t\t\t\t\t\tul.eq(0).attr(\"class\", \"add\");\n\t\t\t\t\t});\n\t\t\t\t</script><div class=\"xitong\"><h2>蒙面股王后台管理系统--<span id=\"add-text\">内容设置</span></h2></div></div><section class=\"section\"><div class=\"mengliaoguanli\">");
+    out.w("<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><link rel=\"stylesheet\" href=\"/styles/reset.css\"> <link rel=\"stylesheet\" href=\"/styles/guwang.css\"> <script src=\"/js/dependencies/sails.io.js\"></script> <script src=\"/js/dependencies/jquery-1.11.0.js\"></script> <title>蒙面股王后台管理系统</title></head><body><div class=\"mengmianguwang\">");
+
+    __header.render({
+        module: data.module
+      }, out);
+
+    out.w("<section class=\"section\"><div class=\"mengliaoguanli\">");
 
     data.sideBar.render({
         selected: data.selected
@@ -25,8 +33,10 @@ function create(__helpers) {
       ")</strong></a></span><a href=\"/content/mengliao/delete?id=" +
       escapeXmlAttr(m.id) +
       "\"><span class=\"shanchu\">删除</span></a></div><div class=\"fabuzhe_info\"><h3>发布者信息</h3><div class=\"xian\"></div><div class=\"fabuzhe_info  clear\"><div class=\"fabuzhe_name\"><p>昵称：<span>" +
+      escapeXml(m.authorRole.name) +
+      "</span></p><p>关联账户：<span>" +
       escapeXml(m.author.name) +
-      "</span></p><p>关联账户：<span>名字很长也可以显示</span></p></div><div class=\"fabuzhe_fans\"><p>猛料：<span>" +
+      "</span></p></div><div class=\"fabuzhe_fans\"><p>猛料：<span>" +
       escapeXml(m.nMengliao) +
       "</span></p><p>粉丝：<span>" +
       escapeXml(m.nFollower) +

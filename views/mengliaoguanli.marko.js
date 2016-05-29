@@ -27,7 +27,7 @@ function create(__helpers) {
       out.w("<ul class=\"mengliao_list\"><a href=\"/content/mengliao/detail?id=" +
         escapeXmlAttr(m.id) +
         "\"><li>" +
-        escapeXml(m.author.name) +
+        escapeXml(m.authorRole.name) +
         "</li><li><span>" +
         escapeXml(m.time.toDateString()) +
         "</span></li><li>" +
