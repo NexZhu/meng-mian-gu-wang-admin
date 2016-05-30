@@ -14,16 +14,25 @@ const
 
 module.exports = {
   list: function list(req, res) {
-    Mengliao.find({}).populate('author').populate('authorRole').then(mengliaos => {
-      async.map(mengliaos, populateMengliaoList, (err, mengliaos) => {
+    Mengliao.find({}).populate('author').populate('authorRole')
+      .then(_.partialRight(async.map, populateMengliaoList, (err, mengliaos) => {
         res.ok({
           mengliaos,
           module: mod,
           sideBar,
           selected
         }, {view: 'mengliaoguanli'})
-      })
-    })
+      }))
+    /*mengliaos => {
+     async.map(mengliaos, populateMengliaoList, (err, mengliaos) => {
+     res.ok({
+     mengliaos,
+     module: mod,
+     sideBar,
+     selected
+     }, {view: 'mengliaoguanli'})
+     })
+     })*/
   },
   detail: function detail(req, res) {
     const id = req.param('id')
