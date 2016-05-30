@@ -60,6 +60,20 @@ module.exports = {
       res.redirect(req.get('referer'))
     })
   },
+  assign: function assign(req, res) {
+    const
+      id     = req.param('id'),
+      search = req.param('search')
+
+    Role.findOne({id}).populate('user').then(role => {
+      res.ok({
+        role,
+        module: mod,
+        sideBar,
+        selected: 'pukepaiyonghu',
+      }, {view: 'pukepaiyonghu_xiugai'})
+    })
+  },
   unassign: function unassign(req, res) {
     const id = req.param('id')
     Role.update({user: id}, {user: null}).then(u => {

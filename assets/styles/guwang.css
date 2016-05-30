@@ -975,19 +975,94 @@ a {
   background: #4C64A5;
 }
 
+/*修改关联*/
 
+.xiugai {
+  margin-top: 10px;
+}
 
+.xiugai_nicheng {
+  font-size: 16px;
+  font-weight: bold;
+  float: left;
+}
 
+.xiugai_guanlian {
+  float: Left;
+  font-size: 14px;
+  font-family: "微软雅黑";
+  margin-left: 30px;
+}
 
+.xinzeng {
+  padding-top: 10px;
+  color: red;
+  font-size: 14px;
+  font-weight: bold;
+}
 
+.soso {
+  margin-top: 15px;
+}
 
+.soso .sear {
+  height: 30px;
+  width: 280px;
+}
 
+.soso .soso_ok {
+  border: 0;
+  height: 30px;
+  width: 80px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  background: #6E82B6;
+  cursor: pointer;
+}
 
+.soso_nr {
+  margin-top: 30px;
+  width: 1200px;
+  display: none;
+}
 
+.soso_info {
 
+  width: 1200px;
+  line-height: 30px;
+  border: 1px solid #D8D8D8;
+  text-align: center;
+}
 
+.soso_nav {
+  height: 30px;
+  color: #21C0C0;
+  border-bottom: 1px solid #D8D8D8;
+}
 
+.soso_list {
+  height: 30px;
+  border-bottom: 1px solid #D8D8D8;
+}
 
+.soso_list:last-child {
+  border-bottom: 0;
+}
+
+.soso_nav li, .soso_list li {
+  float: left;
+  width: 150px;
+}
+
+.nikname {
+  width: 300px !important;
+}
+
+.page {
+  margin-top: 20px;
+  float: right;
+}
 
 
 

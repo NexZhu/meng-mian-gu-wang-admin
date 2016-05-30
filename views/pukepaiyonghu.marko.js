@@ -6,7 +6,8 @@ function create(__helpers) {
       loadTemplate = __helpers.l,
       __header = loadTemplate(require.resolve("./header.marko")),
       forEach = __helpers.f,
-      attr = __helpers.a;
+      attr = __helpers.a,
+      escapeXmlAttr = __helpers.xa;
 
   return function render(data, out) {
     out.w("<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><link rel=\"stylesheet\" href=\"/styles/reset.css\"> <link rel=\"stylesheet\" href=\"/styles/guwang.css\"> <script src=\"/js/dependencies/sails.io.js\"></script> <script src=\"/js/dependencies/jquery-1.11.0.js\"></script> <title>蒙面股王后台管理系统</title></head><body><div class=\"mengmianguwang\">");
@@ -38,7 +39,9 @@ function create(__helpers) {
         escapeXml(r.user ? "正常" : "未赋予") +
         "</li><li><span><a" +
         attr("href", r.user ? "/user/detail?type=card&id=" + r.user.id : "#") +
-        ">详情</a></span>&nbsp; <span class=\"public\"><a href=\"pukepaiyonghu_xiugai.html\">修改</a></span></li></a></ul>");
+        ">详情</a></span>&nbsp; <span class=\"public\"><a href=\"/user/assign?id=" +
+        escapeXmlAttr(r.id) +
+        "\">修改</a></span></li></a></ul>");
     });
 
     out.w("</div><div class=\"tiaozhuan\"><div class=\"page-yeshu\"><span onclick=\"shouye()\">首页</span><span onclick=\"prev_ye()\">上一页</span><span onclick=\"next_ye()\">下一页</span><span onclick=\"last_ye()\">尾页</span></div><div class=\"ystz\"><form action=\"#\"><input id=\"dangqianye\" type=\"text\" class=\"tiaozhuanyeshu\"><span id=\"zongyeshu\"></span></form><span class=\"tiaozhuan-btn\" onclick=\"go_to()\">跳转</span></div></div></div></div></div></div></section><footer class=\"footer\">Copyright © 2016 蒙面股王</footer></div></body></html><script>\n\n    /*删除list*/\n   $(\".remove\").click(function(){\n   \t   $(this).parent().parent().remove();\n   })\n\n  /*跳转页面*/\n\t\tfunction shouye() {\n\t\t\talert(\"首页\");\n\t\t};\n\t\tfunction prev_ye() {\n\t\t\talert(\"上一页\");\n\t\t};\n\n\t\tfunction next_ye() {\n\t\t\talert(\"下一页\");\n\t\t};\n\t\tfunction last_ye() {\n\t\t\talert(\"最后一页\");\n\t\t};\n\n\t\tfunction go_to() {\n\t\t\talert(\"跳转\");\n\t\t};\n\t</script>");
