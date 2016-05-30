@@ -20,20 +20,23 @@
 		 		 <include(data.sideBar) selected='${data.selected}' />
 		 		 <div class="content">
 		 		 	<div class="mengliao">
+		 		 	  <var r=data.role/>
 		 		 		<div class="handle">
 		 		 			<span class="public"> <a href="javascript:history.back(-1)">返回</a></span>
-		 		 			<span class="repeal pinglun"><a href="pukepaiyonghu.html">确认关联</a></span>
+		 		 			<span class="repeal pinglun">
+		 		 			  <a href="#" onclick="if (window.assignTo) window.location = '/user/confirmAssign?role=${r.id}&user=' + window.assignTo">确认关联</a>
+		 		 			</span>
 		 		 		</div>
 		 		 		<div class="fabuzhe_info">
-		 		 		  <var r=data.role/>
 		 		 			<div class="xiugai">
 		 		 				<div class="xiugai_nicheng">昵称:<span>${r.name}</span></div>
 		 		 				<div class="xiugai_guanlian">当前关联：<span>${r.user ? r.user.name : '无'}</span></div>
 		 		 			    <div class="xinzeng clear">新增关联：<span>无</span></div>
 		 		 			</div>
 		 		 			<div class="soso">
-		 		 			  <form action="">
-                  <input type="search" class="sear"/>
+		 		 			  <form action="/user/assign">
+		 		 			    <input type="text" name="id" value="${r.id}" style="display: none"/>
+                  <input type="search" class="sear" name="search" value="${data.search}"/>
                   <input type="submit" class="soso_ok" value="确定"/>
 		 		 			  </form>
 		 		 			</div>
@@ -42,68 +45,23 @@
 		 		 				<ul class="soso_nav">
 		 		 					<li class="nikname">昵称</li>
 		 		 					<li>来源</li>
-		 		 					<li>openid</li>
+		 		 					<li>openid/手机</li>
 		 		 					<li>unionid</li>
 		 		 					<li>性别</li>
 		 		 					<li>地区</li>
 		 		 					<li>选中</li>
 		 		 				</ul>
-		 		 				<ul class="soso_list">
-		 		 					<li class="nikname">昵称太长据说也可以显示</li>
-		 		 					<li>微信</li>
-		 		 					<li>1574845445</li>
-		 		 					<li>00258784</li>
-		 		 					<li>女</li>
-		 		 					<li>北京</li>
-		 		 					<li><input type="radio" name="radio"/></li>
+		 		 				<ul for(u in data.users) class="soso_list">
+		 		 					<li class="nikname">${u.name}</li>
+		 		 					<li>${u.qq ? 'QQ' : u.wechat ? '微信' : '手机'}</li>
+		 		 					<li>${u.qq || u.wechat || u.mobile}</li>
+		 		 					<!-- TODO: 位置？ -->
+		 		 					<li>无</li>
+		 		 					<li>${u.gender}</li>
+		 		 					<!-- TODO: unionid? -->
+		 		 					<li>无</li>
+		 		 					<li><input type="radio" name="radio" onclick="window.assignTo=${u.id}"/></li>
 		 		 				</ul>
-		 		 				<ul class="soso_list">
-		 		 					<li class="nikname">昵称太长</li>
-		 		 					<li>微信</li>
-		 		 					<li>1854845445</li>
-		 		 					<li>4258784</li>
-		 		 					<li>男</li>
-		 		 					<li>江苏</li>
-		 		 					<li><input type="radio" name="radio"/></li>
-		 		 				</ul>
-		 		 				<ul class="soso_list">
-		 		 					<li class="nikname">昵称太长据说也可以显示</li>
-		 		 					<li>微信</li>
-		 		 					<li>1574845445</li>
-		 		 					<li>00258784</li>
-		 		 					<li>女</li>
-		 		 					<li>北京</li>
-		 		 					<li><input type="radio" name="radio"/></li>
-		 		 				</ul>
-		 		 				<ul class="soso_list">
-		 		 					<li class="nikname">昵称太长据说也</li>
-		 		 					<li>微信</li>
-		 		 					<li>1574845445</li>
-		 		 					<li>00258784</li>
-		 		 					<li>男</li>
-		 		 					<li>南京</li>
-		 		 					<li><input type="radio" name="radio"/></li>
-		 		 				</ul>
-		 		 				<ul class="soso_list">
-		 		 					<li class="nikname">昵称太长据说也可以显示</li>
-		 		 					<li>微信</li>
-		 		 					<li>1574845445</li>
-		 		 					<li>00258784</li>
-		 		 					<li>女</li>
-		 		 					<li>北京</li>
-		 		 					<li><input type="radio" name="radio"/></li>
-		 		 				</ul>
-		 		 				<ul class="soso_list">
-		 		 					<li class="nikname">昵称太长据说也</li>
-		 		 					<li>微信</li>
-		 		 					<li>1574845445</li>
-		 		 					<li>00258784</li>
-		 		 					<li>男</li>
-		 		 					<li>南京</li>
-		 		 					<li><input type="radio" name="radio"/></li>
-		 		 				</ul>
-
-
 		 		 			</div>
 		 		 			    <div class="page">
 		 		 			    	<span class="publics">上一页</span>

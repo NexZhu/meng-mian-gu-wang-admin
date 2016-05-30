@@ -66,12 +66,31 @@ module.exports = {
       search = req.param('search')
 
     Role.findOne({id}).populate('user').then(role => {
-      res.ok({
-        role,
-        module: mod,
-        sideBar,
-        selected: 'pukepaiyonghu',
-      }, {view: 'pukepaiyonghu_xiugai'})
+      ;(search ? User.find({
+        or: [
+          {name: {'contains': search}},
+          {mobile: {'contains': search}},
+        ]
+      }) : Promise.resolve([])).then(users => {
+        res.ok({
+          role,
+          users,
+          search,
+          module: mod,
+          sideBar,
+          selected: 'pukepaiyonghu',
+        }, {view: 'pukepaiyonghu_xiugai'})
+      })
+    })
+  },
+  confirmAssign: function confirmAssign(req, res) {
+    const
+      role = req.param('role'),
+      user = req.param('user')
+    Role.count({user}).then(c => {
+      ;(c === 1 ? Promise.resolve({}) : Role.update({id: role}, {user})).then(u => {
+        res.redirect('/user/list?type=card')
+      })
     })
   },
   unassign: function unassign(req, res) {
