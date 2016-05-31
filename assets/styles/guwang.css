@@ -578,6 +578,7 @@ a {
 
 .mengliao_nav .neirong, .mengliao_list .neirong {
   width: 380px;
+  min-width:380px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
