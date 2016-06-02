@@ -14,7 +14,7 @@ const
 
 module.exports = {
   list: function list(req, res) {
-    Mengliao.find({}).populate('author').populate('authorRole')
+    Mengliao.find({sort: 'id DESC'}).populate('author').populate('authorRole')
       .then(_.partialRight(async.map, populateMengliaoList, (err, mengliaos) => {
         res.ok({
           mengliaos,
