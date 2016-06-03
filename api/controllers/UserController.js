@@ -13,25 +13,40 @@ const
 
 module.exports = {
   list: function list(req, res) {
-    const type = req.param('type')
+    const
+      type = req.param('type'),
+      page = req.param('page') || 1
+
     if (type === 'card') {
-      Role.find({}).populate('user')
+      Role.find({
+        skip: 15 * (page - 1),
+        limit: 15,
+      }).populate('user')
         .then(_.partialRight(async.map, populateRoleUser, (err, roles) => {
           res.ok({
             roles,
+            page,
+            nPage: Math.ceil(52 / 15),
             module: mod,
             sideBar,
             selected: 'pukepaiyonghu',
           }, {view: 'pukepaiyonghu'})
         }))
     } else {
-      User.find({}).then(users => {
-        res.ok({
-          users,
-          module: mod,
-          sideBar,
-          selected: 'putongyonghu',
-        }, {view: 'putongyonghu'})
+      User.count({}).then(nUser => {
+        User.find({
+          skip: 15 * (page - 1),
+          limit: 15,
+        }).then(users => {
+          res.ok({
+            users,
+            page,
+            nPage: Math.ceil(nUser / 15),
+            module: mod,
+            sideBar,
+            selected: 'putongyonghu',
+          }, {view: 'putongyonghu'})
+        })
       })
     }
   },
@@ -66,7 +81,8 @@ module.exports = {
       search = req.param('search')
 
     Role.findOne({id}).populate('user').then(role => {
-      ;(search ? User.find({
+      ;
+      (search ? User.find({
         or: [
           {name: {'contains': search}},
           {mobile: {'contains': search}},
@@ -88,7 +104,8 @@ module.exports = {
       role = req.param('role'),
       user = req.param('user')
     Role.count({user}).then(c => {
-      ;(c === 1 ? Promise.resolve({}) : Role.update({id: role}, {user})).then(u => {
+      ;
+      (c === 1 ? Promise.resolve({}) : Role.update({id: role}, {user})).then(u => {
         res.redirect('/user/list?type=card')
       })
     })
