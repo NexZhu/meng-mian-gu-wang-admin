@@ -10,8 +10,7 @@ function create(__helpers) {
       ").attr(\"class\", \"add\");\n    });\n  </script><div class=\"xitong\"><h2>蒙面股王后台管理系统--<span id=\"add-text\">" +
       escapeXml([
         "内容管理",
-        "用户管理",
-        "系统设置"
+        "用户管理"
       ][data.module]) +
       "</span></h2></div></div>");
   };
