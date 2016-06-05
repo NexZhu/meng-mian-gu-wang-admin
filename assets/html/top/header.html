@@ -10,47 +10,20 @@
 <body>
 <div>
   <div class="conter">
-    <header class="header">
-      <div class="header-top">
-        <div class="header-tx">
-          <div class="tx"><img src="/images/tixing.png" alt=""/></div>
-          <div class="hd"><img src="/images/hongdian.png" alt=""/></div>
-        </div>
-        <div class="header-tc">
+
+
+    <nav class="nav">
+      <ul class="nav-ul" id="ul">
+        <li><a href="/content/mengliao/list" target="_parent">内容管理</a></li>
+        <li><a href="/user/list?type=normal" target="_parent">用户管理</a></li>
+        <li><a href="../xitongshezhi/tuisong.html" target="_parent">系统设置</a>
+        </li>
+        <div class="quit">
           <a href="/auth/signout" target="_parent">退出登录</a>
         </div>
-      </div>
-    </header>
-    <nav class="nav">
-      <div class="nav-info">
-        <div class="riqi">欢迎你，今天是<span id="thisdate"></span></div>
-        <div style="clear:both;"></div>
-        <div>
-          <div class="nav-btn">
-            <ul class="nav-ul" id="ul">
-              <li><a href="/content/mengliao/list" target="_parent">内容管理</a>
-              </li>
-              <li><a href="/user/list?type=normal" target="_parent">用户管理</a>
-              </li>
-              <li><a href="../xitongshezhi/tuisong.html"
-                     target="_parent">系统设置</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      </ul>
     </nav>
   </div>
 </div>
 </body>
-<script>
-  //	获取当前日期
-  function show() {
-    var mydate = new Date();
-    var str    = "" + mydate.getFullYear() + "-";
-    str += (mydate.getMonth() + 1) + "-";
-    str += mydate.getDate();
-    return str;
-  }
-  $("#thisdate").html(show());
-</script>
 </html>

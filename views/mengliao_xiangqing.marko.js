@@ -10,67 +10,61 @@ function create(__helpers) {
       attr = __helpers.a;
 
   return function render(data, out) {
-    out.w("<!DOCTYPE html> <html> <head> <meta charset=\"UTF-8\"> <link rel=\"stylesheet\" href=\"/styles/reset.css\"> <link rel=\"stylesheet\" href=\"/styles/guwang.css\"> <script src=\"/js/dependencies/jquery-1.11.0.js\"></script> <title>蒙面股王后台管理系统</title> </head> <body> <div class=\"mengmianguwang\"> ");
-
-    __header.render({
-        module: data.module
-      }, out);
-
-    out.w(" <section class=\"section\"> <div class=\"mengliaoguanli\"> ");
+    out.w("<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><link rel=\"shortcut icon\" href=\"/images/new.ico\"><link rel=\"stylesheet\" href=\"/styles/reset.css\"> <link rel=\"stylesheet\" href=\"/styles/guwang.css\"> <script src=\"/js/dependencies/jquery-1.11.0.js\"></script> <script src=\"/js/guwang_houtai.js\"></script> <title>蒙面股王后台管理系统</title></head><body><div class=\"mengmianguwang\">");
 
     data.sideBar.render({
         selected: data.selected
       }, out);
 
-    out.w(" <div class=\"content\"> <div class=\"mengliao\"> ");
+    __header.render({
+        module: data.module
+      }, out);
+
+    out.w("<section class=\"section\"><div class=\"mengliaoguanli\"><div class=\"content\"><div class=\"mengliao\">");
 
     var m = data.mengliao;
 
-    out.w("<div class=\"handle\"> <span class=\"public\"> <a href=\"javascript:history.back(-1)\">返回</a></span> <span class=\"pinglun\"><a href=\"pinglun_xiangqing.html\">评论<strong>(" +
+    out.w("<div class=\"handle\"><ul><li><a href=\"pinglun_xiangqing.html\">评论<strong>(" +
       escapeXml(m.nComment) +
-      ")</strong></a></span> <span class=\"pinglun\"><a href=\"dianzan.html\">点赞<strong>(" +
+      ")</strong></a></li><li><a href=\"dianzan.html\">点赞<strong>(" +
       escapeXml(m.nLike) +
-      ")</strong></a></span> <a href=\"/content/mengliao/delete?id=" +
+      ")</strong></a></li><li class=\"shanchu\"><a href=\"/content/mengliao/delete?id=" +
       escapeXmlAttr(m.id) +
-      "\"><span class=\"shanchu\">删除</span></a> </div> <div class=\"fabuzhe_info\"> <h3>发布者信息</h3> <div class=\"xian\"></div> <div class=\"fabuzhe_info  clear\"> <div class=\"fabuzhe_name\"> <p>昵称：<span>" +
+      "\">删除</a></li><li><a href=\"javascript:history.back(-1)\">返回</a></li></ul></div><div class=\"fabuzhe_info\"><div class=\"fabu_left\"><h3>发布者信息</h3><div class=\"xian\"></div><div class=\"fabuzhe_info  clear\"><div class=\"fabuzhe_name\"><p>昵称：<span>" +
       escapeXml(m.authorRole.name) +
-      "</span></p> <p>关联账户：<span>" +
+      "</span></p><p>关联账户：<span>" +
       escapeXml(m.author.name) +
-      "</span></p> </div> <div class=\"fabuzhe_fans\"> <p>猛料：<span>" +
+      "</span></p></div><div class=\"fabuzhe_fans\"><p>猛料：<span>" +
       escapeXml(m.nMengliao) +
-      "</span></p> <p>粉丝：<span>" +
+      "</span></p><p>粉丝：<span>" +
       escapeXml(m.nFollower) +
-      "</span></p> </div> <h3>猛料详情</h3> <div class=\"xian\"></div> <div class=\"time\"> 发布时间：<span>" +
-      escapeXml(m.time.toDateString()) +
-      "</span> </div> <div class=\"mengliaoxiangqing_info\"> ");
+      "</span></p></div><div class=\"xian\"></div><h3>猛料详情</h3><div class=\"xian\"></div><div class=\"time\">发布时间：<span>" +
+      escapeXml(m.time.toLocaleString()) +
+      "</span></div><div class=\"mengliaoxiangqing_info\">");
 
     forEach(m.contents, function(c) {
-      out.w(" ");
-
       if (c.type === "1") {
-        out.w("<span> <img" +
+        out.w("<span><img" +
           attr("src", c.content) +
-          " alt> </span>");
+          " alt></span>");
       } else {
-        out.w("<p> " +
+        out.w("<p>" +
           escapeXml(c.content) +
-          " </p>");
+          "</p>");
       }
-
-      out.w(" ");
     });
 
-    out.w(" </div> <div class=\"friendlink\"> <h4>相关链接</h4> ");
+    out.w("</div></div></div><div class=\"friendlink\"><h4>相关链接</h4>");
 
     forEach(m.relatedLinks, function(r) {
-      out.w(" <a" +
+      out.w("<a" +
         attr("href", r.url) +
         ">" +
         escapeXml(r.title) +
-        "</a> ");
+        "</a>");
     });
 
-    out.w(" </div> </div> </div> </div> </div> </div> </section> <footer class=\"footer\"> Copyright © 2016 蒙面股王 </footer> </div> </body> </html>");
+    out.w("</div></div></div></div></div></section><footer class=\"footer\">Copyright © 2016 蒙面股王</footer></div></body></html>");
   };
 }
 

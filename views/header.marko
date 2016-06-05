@@ -1,12 +1,10 @@
 <div class="fixed">
-  <iframe id="iframe" src="/html/top/header.html" scrolling="no" width="100%" style="border:0" ;></iframe>
+  <iframe id="iframe" src="/html/top/header.html" scrolling="no" width="100%"
+          height="60" style="border:0" ;></iframe>
   <script>
-    $('#iframe').load(function() {
+    $('#iframe').load(function () {
       var ul = $('#iframe').contents().find("#ul li");
       ul.eq(${data.module}).attr("class", "add");
     });
   </script>
-  <div class="xitong">
-    <h2>蒙面股王后台管理系统--<span id="add-text">${['内容管理', '用户管理'][data.module]}</span></h2>
-  </div>
 </div>
