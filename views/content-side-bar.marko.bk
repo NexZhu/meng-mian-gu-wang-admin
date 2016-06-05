@@ -1,0 +1,6 @@
+<div class="side-bar">
+  <div><a href="/content/mengliao/list"
+          style="${data.selected === 'mengliaoguanli' ? 'color:#333;' : ''}">猛料管理</a>
+  </div>
+  <!--<div><a href="/content/jubao/list" style="${data.selected === 'jubaoguanli' ? 'color:#333;' : ''}">举报管理</a></div>-->
+</div>

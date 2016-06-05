@@ -56,6 +56,13 @@ module.exports = {
   },
   delete: function list(req, res) {
     const id = req.param('id')
+    Comment.find({mengliao: id}).then(cs => {
+      async.map(cs, (c, cb) => {
+        
+      }, (err, cs) => {
+
+      })
+    }),
     async.parallel([
       parallelTask(() => MengliaoContent.destroy({mengliao: id})),
       parallelTask(() => Like.destroy({mengliao: id})),
