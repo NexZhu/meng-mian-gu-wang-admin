@@ -16,32 +16,45 @@ const
 module.exports = {
   list: function list(req, res) {
     const
-      type = req.param('type'),
-      page = req.param('page') || 1
+      type   = req.param('type'),
+      search = req.param('search') || '',
+      page   = req.param('page') || 1
 
     if (type === 'card') {
       Role.find({
-        skip: 15 * (page - 1),
-        limit: 15,
+        // skip: 15 * (page - 1),
+        // limit: 15,
       }).populate('user')
-        .then(_.partialRight(async.map, populateRoleUser, (err, roles) => {
+        .then(_.partialRight(async.map, populateRoleUser, (err, rs) => {
+          rs = search ? rs.filter(r => r.name.includes(search) || r.user && r.user.name.includes(search)) : rs
           res.ok({
-            roles,
+            roles: rs.slice(15 * (page - 1), 15 * page),
+            search,
             page,
-            nPage: nPage(52),
+            nPage: nPage(rs.length),
             module: mod,
             sideBar,
             selected: 'pukepaiyonghu',
           }, {view: 'pukepaiyonghu'})
         }))
     } else {
-      User.count({}).then(nUser => {
+      User.count({
+        or: [
+          {name: {'contains': search}},
+          {mobile: {'contains': search}},
+        ],
+      }).then(nUser => {
         User.find({
+          or: [
+            {name: {'contains': search}},
+            {mobile: {'contains': search}},
+          ],
           skip: 15 * (page - 1),
           limit: 15,
         }).then(users => {
           res.ok({
             users,
+            search,
             page,
             nPage: nPage(nUser),
             module: mod,
@@ -89,7 +102,7 @@ module.exports = {
         or: [
           {name: {'contains': search}},
           {mobile: {'contains': search}},
-        ]
+        ],
       }) : Promise.resolve(0)).then(nUser => {
         ;
         (search ? User.find({

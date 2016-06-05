@@ -23,8 +23,11 @@
         <div class="mengliao">
           <div class="search pt">
             <div class="sousuo">
-              <input type="search" class="text" placeholder="输入昵称、关键词等"/>
-              <input type="submit" class="buttom" value="搜索" style="margin-left: 3px"/>
+              <form action="/user/list">
+                <input name="type" type="text" value="card" style="display: none"/>
+                <input name="search" type="search" value="${data.search}" class="text" placeholder="输入昵称、关键词等"/>
+                <input type="submit" class="buttom" value="搜索" style="margin-left: 3px"/>
+              </form>
             </div>
           </div>
           <div class="mengliao_info clear">
@@ -53,18 +56,18 @@
               </ul>
             </div>
             <div class="tiaozhuan">
-              <var page=parseInt(data.page) nPage=data.nPage/>
+              <var search=data.search page=parseInt(data.page) nPage=data.nPage/>
                 <div class="page-yeshu">
-                  <a href="/user/list?type=card"><span>首页</span></a>
-                  <a href="${page === 1 ? '#' : ('/user/list?type=card&page=' + (page - 1))}">
+                  <a href="/user/list?type=card&search=${search}"><span>首页</span></a>
+                  <a href="${page === 1 ? '#' : ('/user/list?type=card&search=${search}&page=' + (page - 1))}">
                     <span>前一页</span>
                   </a>
                   <strong class="at_yeshu">${page}</strong>
                   <strong>${nPage}</strong>
-                  <a href="${page === nPage ? '#' : ('/user/list?type=card&page=' + (parseInt(page) + 1))}">
+                  <a href="${page === nPage ? '#' : ('/user/list?type=card&search=${search}&page=' + (parseInt(page) + 1))}">
                     <span>后一页</span>
                   </a>
-                  <a href="${'/user/list?type=card&page=' + nPage}"><span>尾页</span></a>
+                  <a href="${'/user/list?type=card&search=${search}&page=' + nPage}"><span>尾页</span></a>
                 </div>
                 <div class="ystz">
                   <form action="#">
@@ -73,7 +76,7 @@
                     <span id="zongyeshu"></span>
                   </form>
                   <span class="tiaozhuan-btn"
-                        onclick="var page = document.getElementById('dangqianye').value; if (page) window.location = '/user/list?type=card&page=' + page">跳转</span>
+                        onclick="var page = document.getElementById('dangqianye').value; if (page) window.location = '/user/list?type=card&search=${search}&page=' + page">跳转</span>
                 </div>
             </div>
 
