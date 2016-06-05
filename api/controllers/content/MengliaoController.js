@@ -55,12 +55,21 @@ module.exports = {
   delete: function list(req, res) {
     const id = req.param('id')
     async.parallel([
-      cb => MengliaoContent.destroy({mengliao: id}).then(cb),
-      cb => Like.destroy({mengliao: id}).then(cb),
-      cb => Comment.destroy({mengliao: id}).then(cb),
-    ], (err, results) => {
-      Mengliao.destroy({id}).then(err => {
-        res.redirect(req.get('referer'))
+      parallelTask(() => MengliaoContent.destroy({mengliao: id})),
+      parallelTask(() => Like.destroy({mengliao: id})),
+      cb => Comment.find({mengliao: id})
+        .then(_.partialRight(async.map, (c, cb) => {
+          Jubao.destroy({comment: c.id})
+            .then(() => {
+              return c.destroy()
+            })
+            .then(_.partial(cb, null))
+        }, cb)),
+    ], () => {
+      Mengliao.destroy({id}).then(() => {
+        const referer = req.get('referer')
+        res.redirect(referer.includes('/content/mengliao/list') ?
+          referer : '/content/mengliao/list')
       })
     })
   },
@@ -68,13 +77,13 @@ module.exports = {
 
 function populateMengliao(m, detail, cb) {
   async.parallel([
-    parallelTask(cb, () => MengliaoContent.find({mengliao: m.id})),
-    parallelTask(cb, () => Like.count({mengliao: m.id})),
-    parallelTask(cb, () => Comment.count({mengliao: m.id})),
+    parallelTask(() => MengliaoContent.find({mengliao: m.id})),
+    parallelTask(() => Like.count({mengliao: m.id})),
+    parallelTask(() => Comment.count({mengliao: m.id})),
     ...(detail ? [
-      parallelTask(cb, () => Mengliao.count({author: m.author.id})),
-      parallelTask(cb, () => Follow.count({user: m.author.id})),
-      parallelTask(cb, () => RelatedLink.find({mengliao: m.id})),
+      parallelTask(() => Mengliao.count({author: m.author.id})),
+      parallelTask(() => Follow.count({user: m.author.id})),
+      parallelTask(() => RelatedLink.find({mengliao: m.id})),
     ] : []),
   ], (err, results) => {
     cb(null, Object.assign({}, m, {
@@ -91,6 +100,6 @@ function populateMengliao(m, detail, cb) {
 
 const populateMengliaoList = _.curry(populateMengliao)(_, false)
 
-function parallelTask(cb, task) {
+function parallelTask(task) {
   return cb => task().then(_.partial(cb, null))
 }
