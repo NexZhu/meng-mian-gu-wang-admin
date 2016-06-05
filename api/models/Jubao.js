@@ -12,9 +12,13 @@ module.exports = {
       model: 'comment',
       columnName: '评论_ID',
     },
-    user: {
+    reporter: {
       model: 'user',
       columnName: '举报人',
+    },
+    reported: {
+      model: 'user',
+      columnName: '被举报人',
     },
     time: {
       type: 'datetime',

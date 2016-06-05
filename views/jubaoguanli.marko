@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" href="/images/new.ico"/>
+  <!--STYLES-->
+  <link rel="stylesheet" href="/styles/reset.css">
+  <link rel="stylesheet" href="/styles/guwang.css">
+  <!--STYLES END-->
+  <!--SCRIPTS-->
+  <script src="/js/dependencies/jquery-1.11.0.js"></script>
+  <script src="/js/guwang_houtai.js"></script>
+  <!--SCRIPTS END-->
+  <title>蒙面股王后台管理系统</title>
+</head>
+<body>
+<div class="mengmianguwang">
+  <include(data.sideBar) selected='${data.selected}' />
+  <include('./header.marko') module='${data.module}' />
+  <section class="section">
+    <div class="mengliaoguanli">
+      <div class="content">
+        <div class="mengliao jb">
+          <div class="mengliao_info clear">
+            <div class="mengliao_ul">
+              <ul class="mengliao_nav">
+                <li>举报者</li>
+                <li class="jubao">举报原因</li>
+                <li>被举报者</li>
+                <li class="jubao">举报内容</li>
+                <li>举报时间</li>
+                <li>操作</li>
+              </ul>
+              <ul for(j in data.jubaos) class="mengliao_list odd">
+                <li>${j.reporter.name}</li>
+                <li class="jubao">${j.content}</li>
+                <li>${j.reported.name}</li>
+                <!-- TODO 举报内容？ -->
+                <li class="jubao">TODO</li>
+                <li><span>${j.time.toLocaleString()}</span></li>
+                <li>
+                  <!-- TODO 忽略举报？ -->
+                  <span class="lose publics">忽略举报</span>
+                  <a href='/content/jubao/delete?id=${j.id}' style="margin-left: 4px">
+                    <span class="remove publics">删除内容</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="tiaozhuan">
+              <var page=parseInt(data.page) nPage=data.nPage/>
+            <div class="page-yeshu">
+              <a href="/content/jubao/list"><span>首页</span></a>
+              <a href="${page === 1 ? '#' : ('/content/jubao/list?page=' + (page - 1))}">
+                <span>前一页</span>
+              </a>
+              <strong class="at_yeshu">${page}</strong>
+              <strong>${nPage}</strong>
+              <a href="${page === nPage ? '#' : ('/content/jubao/list?page=' + (parseInt(page) + 1))}">
+                <span>后一页</span>
+              </a>
+              <a href="${'/content/jubao/list?page=' + nPage}"><span>尾页</span></a>
+            </div>
+              <div class="ystz">
+                <form action="#">
+                  <input id="dangqianye" type="number" class="tiaozhuanyeshu"
+                         value="${page}" min="1" max="${nPage}"/>
+                  <span id="zongyeshu"></span>
+                </form>
+                <span class="tiaozhuan-btn"
+                      onclick="var page = document.getElementById('dangqianye').value; if (page) window.location = '/content/jubao/list?&page=' + page">跳转</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <footer class="footer">
+    Copyright © 2016 蒙面股王
+  </footer>
+</div>
+</body>
+</html>
