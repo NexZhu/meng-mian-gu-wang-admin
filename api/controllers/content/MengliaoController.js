@@ -14,24 +14,30 @@ const
 
 module.exports = {
   list: function list(req, res) {
-    const page = req.param('page') || 1
-    Mengliao.count({}).then(nMengliao => {
-      Mengliao.find({
-        sort: 'id DESC',
-        skip: 15 * (page - 1),
-        limit: 15,
-      }).populate('author').populate('authorRole')
-        .then(_.partialRight(async.map, populateMengliaoList, (err, mengliaos) => {
-          res.ok({
-            mengliaos,
-            page,
-            nPage: Math.ceil(nMengliao / 15),
-            module: mod,
-            sideBar,
-            selected,
-          }, {view: 'mengliaoguanli'})
-        }))
-    })
+    const
+      page   = req.param('page') || 1,
+      search = req.param('search') || ''
+
+    Mengliao.find({
+      sort: 'id DESC',
+      /*skip: 15 * (page - 1),
+       limit: 15,*/
+    }).populate('author').populate('authorRole')
+      .then(_.partialRight(async.map, populateMengliaoList, (err, ms) => {
+        ms = ms.filter(m => m.authorRole.name.includes(search)
+        || m.contents.reduce((prev, curr) => {
+          return prev || curr.content.includes(search)
+        }, false))
+        res.ok({
+          mengliaos: ms.slice(15 * (page - 1), 15 * page),
+          page,
+          nPage: Math.ceil(ms.length / 15),
+          search,
+          module: mod,
+          sideBar,
+          selected,
+        }, {view: 'mengliaoguanli'})
+      }))
   },
   detail: function detail(req, res) {
     const id = req.param('id')
