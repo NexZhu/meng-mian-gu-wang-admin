@@ -24,9 +24,9 @@
           <var m=data.mengliao/>
           <div class="handle">
             <ul>
-              <li><a href="pinglun_xiangqing.html">评论<strong>(${m.nComment})</strong></a>
+              <li><a href="/content/comment/list?id=${m.id}">评论<strong>(${m.nComment})</strong></a>
               </li>
-              <li><a href="dianzan.html">点赞<strong>(${m.nLike})</strong></a></li>
+              <li><a href="/content/like/list?id=${m.id}">点赞<strong>(${m.nLike})</strong></a></li>
               <li class="shanchu"><a href="/content/mengliao/delete?id=${m.id}">删除</a></li>
               <li><a href="javascript:history.back(-1)">返回</a></li>
             </ul>

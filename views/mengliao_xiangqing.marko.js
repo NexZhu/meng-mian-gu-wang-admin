@@ -24,9 +24,13 @@ function create(__helpers) {
 
     var m = data.mengliao;
 
-    out.w("<div class=\"handle\"><ul><li><a href=\"pinglun_xiangqing.html\">评论<strong>(" +
+    out.w("<div class=\"handle\"><ul><li><a href=\"/content/comment/list?id=" +
+      escapeXmlAttr(m.id) +
+      "\">评论<strong>(" +
       escapeXml(m.nComment) +
-      ")</strong></a></li><li><a href=\"dianzan.html\">点赞<strong>(" +
+      ")</strong></a></li><li><a href=\"/content/like/list?id=" +
+      escapeXmlAttr(m.id) +
+      "\">点赞<strong>(" +
       escapeXml(m.nLike) +
       ")</strong></a></li><li class=\"shanchu\"><a href=\"/content/mengliao/delete?id=" +
       escapeXmlAttr(m.id) +
