@@ -12,5 +12,17 @@ module.exports = {
       model: 'mengliao',
       columnName: '涨讯ID',
     },
+    author: {
+      model: 'user',
+      columnName: '评论人',
+    },
+    time: {
+      type: 'datetime',
+      columnName: '创建时间',
+    },
+    content: {
+      type: 'string',
+      columnName: '评论内容',
+    },
   },
 }

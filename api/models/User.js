@@ -44,6 +44,10 @@ module.exports = {
       collection: 'mengliao',
       via: 'author',
     },
+    comments: {
+      collection: 'comment',
+      via: 'author',
+    },
     followings: {
       collection: 'follow',
       via: 'follower',
