@@ -50,5 +50,8 @@ module.exports.policies = {
   // }
 
   'content/MengliaoController': 'sessionAuth',
+  'content/CommentController': 'sessionAuth',
+  'content/LikeController': 'sessionAuth',
+  'content/JubaoController': 'sessionAuth',
   'UserController': 'sessionAuth',
 }
