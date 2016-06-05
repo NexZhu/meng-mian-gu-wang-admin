@@ -2,7 +2,6 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <link rel="shortcut icon" href="/images/new.ico"/>
   <!--STYLES-->
   <link rel="stylesheet" href="/styles/reset.css">
   <link rel="stylesheet" href="/styles/guwang.css">
@@ -15,16 +14,19 @@
 </head>
 <body>
 <div class="mengmianguwang">
-  <include(data.sideBar) selected='${data.selected}' />
-  <include('./header.marko') module='${data.module}' />
+  <include
+    (
+  './header.marko') module='${data.module}' />
   <section class="section">
     <div class="mengliaoguanli">
+      <include
+        (data.sideBar) selected='${data.selected}'/>
       <div class="content">
         <div class="mengliao">
-          <div class="search pt">
+          <div class="search">
             <div class="sousuo">
               <input type="search" class="text" placeholder="输入昵称、关键词等"/>
-              <input type="submit" class="buttom" value="搜索" style="margin-left: 3px"/>
+              <input type="submit" class="buttom" value="搜索"/>
             </div>
           </div>
           <div class="mengliao_info clear">
@@ -37,34 +39,34 @@
                 <li>状态</li>
                 <li>操作</li>
               </ul>
-              <ul for(r in data.roles) class="mengliao_list odd">
-                <a href="${r.user ? '/user/detail?type=card&id=' + r.user.id : '#'}">
+              <ul for(r in data.roles) class="mengliao_list">
+                <a
+                  href="${r.user ? '/user/detail?type=card&id=' + r.user.id : '#'}">
                   <li class="guanlian">${r.name}</li>
                   <li class="guanlian">${r.user ? r.user.name : '无'}</li>
                   <li>${r.user ? r.user.nMengliao : '无'}</li>
                   <li>${r.user ? r.user.nFollowing : '无'}</li>
                   <li>${r.user ? '正常' : '未赋予'}</li>
                   <li>
-                    <span><a class="xiangqing"
-                             href="${r.user ? '/user/detail?type=card&id=' + r.user.id : '#'}">详情</a></span>
-                    <span style="margin-left: 4px"><a class="publics" href="/user/assign?id=${r.id}">修改</a></span>
+                    <span><a
+                      href="${r.user ? '/user/detail?type=card&id=' + r.user.id : '#'}">详情</a></span>&nbsp;
+                    <span class="public"><a
+                      href="/user/assign?id=${r.id}">修改</a></span>
                   </li>
                 </a>
               </ul>
             </div>
+
             <div class="tiaozhuan">
               <var page=parseInt(data.page) nPage=data.nPage/>
                 <div class="page-yeshu">
                   <a href="/user/list?type=card"><span>首页</span></a>
-                  <a href="${page === 1 ? '#' : ('/user/list?type=card&page=' + (page - 1))}">
-                    <span>前一页</span>
-                  </a>
-                  <strong class="at_yeshu">${page}</strong>
-                  <strong>${nPage}</strong>
-                  <a href="${page === nPage ? '#' : ('/user/list?type=card&page=' + (parseInt(page) + 1))}">
-                    <span>后一页</span>
-                  </a>
-                  <a href="${'/user/list?type=card&page=' + nPage}"><span>尾页</span></a>
+                  <a
+                    href="${page === 1 ? '#' : ('/user/list?type=card&page=' + (page - 1))}"><span>上一页</span></a>
+                  <a
+                    href="${page === nPage ? '#' : ('/user/list?type=card&page=' + (parseInt(page) + 1))}"><span>下一页</span></a>
+                  <a
+                    href="${'/user/list?type=card&page=' + nPage}"><span>尾页</span></a>
                 </div>
                 <div class="ystz">
                   <form action="#">

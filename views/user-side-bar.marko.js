@@ -3,14 +3,14 @@ function create(__helpers) {
       empty = __helpers.e,
       notEmpty = __helpers.ne,
       escapeXml = __helpers.x,
-      styleAttr = __helpers.sa;
+      classAttr = __helpers.ca;
 
   return function render(data, out) {
-    out.w("<div class=\"side-bar\"><div><a href=\"/user/list?type=normal\"" +
-      styleAttr(data.selected === "putongyonghu" ? "color:#333;" : "") +
-      ">普通用户</a></div><div><a href=\"/user/list?type=card\"" +
-      styleAttr(data.selected === "pukepaiyonghu" ? "color:#333;" : "") +
-      ">扑克牌用户</a></div></div>");
+    out.w("<div class=\"side-bar\"><h3>蒙面股王后台管理系统</h3><div" +
+      classAttr(data.selected === "putongyonghu" ? "adda" : "") +
+      "><a href=\"/user/list?type=normal\">普通用户</a></div><div" +
+      classAttr(data.selected === "pukepaiyonghu" ? "adda" : "") +
+      "><a href=\"/user/list?type=card\">扑克牌用户</a></div></div>");
   };
 }
 

@@ -23,7 +23,6 @@ a {
 }
 
 /*登陆页面*/
-
 .denglu-info {
   width: 100%;
   min-width: 1280px;
@@ -33,7 +32,6 @@ a {
   width: 40%;
   margin: 0 auto;
   position: relative;
-
 }
 
 .denglu-logo img {
@@ -176,7 +174,6 @@ a {
 .nav-ul li a {
   color: #666666;
   font-size: 15px;
-
 }
 
 .nav-ul li a:hover {
@@ -193,7 +190,6 @@ a {
 }
 
 /*模块添加背景样式*/
-
 .add {
   border-bottom: 3px solid #333;
 }
@@ -204,7 +200,6 @@ a {
 }
 
 /*模块公共部分固定*/
-
 .fixed {
   width: 1080px;
   float: left;
@@ -901,7 +896,10 @@ a {
 .putongyonghu_nav li, .putongyonghu_list li {
   float: left;
   width: 120px;
+  height: 40px;
   text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .putongyonghu_list {
