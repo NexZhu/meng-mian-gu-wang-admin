@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!--STYLES-->
+  <link rel="stylesheet" href="/styles/reset.css">
+  <link rel="stylesheet" href="/styles/guwang.css">
+  <!--STYLES END-->
+  <!--SCRIPTS-->
+  <script src="/js/dependencies/jquery-1.11.0.js"></script>
+  <script src="/js/guwang_houtai.js"></script>
+  <!--SCRIPTS END-->
+  <title>蒙面股王后台管理系统</title>
+</head>
+<body>
+<div class="mengmianguwang">
+  <include
+  ('./header.marko') module='${data.module}' />
+  <section class="section">
+    <div class="mengliaoguanli">
+      <include
+      (data.sideBar) selected='${data.selected}' />
+      <div class="content">
+        <div class="mengliao">
+          <var u=data.user/>
+            <div class="handle">
+              <span class="public"> <a href="javascript:history.back(-1)">返回</a></span>
+		 		 			<span class="banned pinglun">
+		 		 			  <a
+                  href="/user/restrict?id=${u.id}&restricted=${u.restricted === '0' ? '1' : '0'}">${u.restricted === '0' ? '解除' : '禁言'}</a>
+		 		 			</span>
+              <span class="repeal pinglun"><a href="/user/unassign?id=${u.id}">撤销关联</a></span>
+            </div>
+            <div class="fabuzhe_info">
+              <h3>基本信息</h3>
+              <div class="xian"></div>
+              <div class="yonghuxiangqing_info">
+                <div class="head">
+                  <img src="${u.avatar}" alt=""/>
+                </div>
+                <div class="head_info">
+                  <p class="names">昵称：<span>${u.name}</span></p>
+                  <!-- TODO: 地区？ -->
+                  <p>性别：<span>${u.gender}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;地区：<span>无</span>
+                  </p>
+                  <p>来源：<span>${u.qq ? 'QQ' : u.wechat ? '微信' : '手机'}</span>&nbsp;&nbsp;状态：<span>${u.restricted === '0' ? '禁言' : '正常'}</span>
+                  </p>
+                  <p>openid/手机：<span>${u.qq || u.wechat || u.mobile}</span>&nbsp;&nbsp;unionid：<span>无</span>
+                  </p>
+                  <p>关联扑克牌：<span>${u.role ? u.role.name : '无'}</span></p>
+                </div>
+                <div class="tas clear">
+                  <h3>其他信息</h3>
+                  <div class="xian"></div>
+                  <div class="rests">
+                    <div class="ta">
+                      <span class="gz">TA关注的人</span>
+                      <span class="rs"><a
+                        href="putongyonghu_xiangqing_guanzhu.html">${u.nFollowing} 〉</a> </span>
+                    </div>
+                    <div class="ta">
+                      <span class="gz">TA赞过的猛料</span>
+                      <span class="rs"><a
+                        href="putongyonghu_xiangqing_mengliao.html">${u.nLike} 〉</a> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <footer class="footer">
+    Copyright © 2016 蒙面股王
+  </footer>
+</div>
+</body>
+</html>
+<script>
+</script>

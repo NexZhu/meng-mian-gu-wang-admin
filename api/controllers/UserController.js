@@ -80,24 +80,37 @@ module.exports = {
   assign: function assign(req, res) {
     const
       id     = req.param('id'),
-      search = req.param('search')
+      search = req.param('search'),
+      page   = req.param('page') || 1
 
     Role.findOne({id}).populate('user').then(role => {
       ;
-      (search ? User.find({
+      (search ? User.count({
         or: [
           {name: {'contains': search}},
           {mobile: {'contains': search}},
         ]
-      }) : Promise.resolve([])).then(users => {
-        res.ok({
-          role,
-          users,
-          search,
-          module: mod,
-          sideBar,
-          selected: 'pukepaiyonghu',
-        }, {view: 'pukepaiyonghu_xiugai'})
+      }) : Promise.resolve(0)).then(nUser => {
+        ;
+        (search ? User.find({
+          or: [
+            {name: {'contains': search}},
+            {mobile: {'contains': search}},
+          ],
+          skip: 15 * (page - 1),
+          limit: 15,
+        }) : Promise.resolve([])).then(users => {
+          res.ok({
+            role,
+            users,
+            search,
+            page,
+            nPage: nPage(nUser),
+            module: mod,
+            sideBar,
+            selected: 'pukepaiyonghu',
+          }, {view: 'pukepaiyonghu_xiugai'})
+        })
       })
     })
   },
