@@ -5,7 +5,9 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
-const view = require('lib/view-manager')
+const
+  view  = require('lib/view-manager'),
+  nPage = require('utils/npage')
 
 const
   mod     = 1,
@@ -26,7 +28,7 @@ module.exports = {
           res.ok({
             roles,
             page,
-            nPage: Math.ceil(52 / 15),
+            nPage: nPage(52),
             module: mod,
             sideBar,
             selected: 'pukepaiyonghu',
@@ -41,7 +43,7 @@ module.exports = {
           res.ok({
             users,
             page,
-            nPage: Math.ceil(nUser / 15),
+            nPage: nPage(nUser),
             module: mod,
             sideBar,
             selected: 'putongyonghu',

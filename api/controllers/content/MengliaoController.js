@@ -5,7 +5,9 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
-const view = require('lib/view-manager')
+const
+  view  = require('lib/view-manager'),
+  nPage = require('utils/npage')
 
 const
   mod      = 0,
@@ -31,7 +33,7 @@ module.exports = {
         res.ok({
           mengliaos: ms.slice(15 * (page - 1), 15 * page),
           page,
-          nPage: Math.ceil(ms.length / 15),
+          nPage: nPage(ms.length),
           search,
           module: mod,
           sideBar,
