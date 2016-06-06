@@ -106,6 +106,31 @@ module.exports = {
       }))
     })
   },
+  like: function like(req, res) {
+    const
+      id   = req.param('id'),
+      page = req.param('page') || 1
+
+    Like.count({user: id}).then(nLike => {
+      Like.find({
+        user: id,
+        skip: 15 * (page - 1),
+        limit: 15,
+      }).populate('mengliao')
+        .then(ls => ls.filter(l => l.mengliao))
+        .then(_.partialRight(async.map, populateLikeMengliao, (err, mengliaos) => {
+          res.ok({
+            id,
+            mengliaos,
+            page,
+            nPage: nPage(nLike),
+            module: mod,
+            sideBar,
+            selected: 'putongyonghu',
+          }, {view: 'yonghu_mengliao'})
+        }))
+    })
+  },
   restrict: function restricted(req, res) {
     const
       id         = req.param('id'),
@@ -173,12 +198,12 @@ module.exports = {
 
 function populateUser(u, detail, cb) {
   async.parallel([
-    parallelTask(cb, () => Follow.count({follower: u.id})),
-    parallelTask(cb, () => Like.count({user: u.id})),
-    parallelTask(cb, () => Mengliao.count({author: u.id})),
+    parallelTask(() => Follow.count({follower: u.id})),
+    parallelTask(() => Like.count({user: u.id})),
+    parallelTask(() => Mengliao.count({author: u.id})),
     ...(detail ? [
-      parallelTask(cb, () => Role.findOne({user: u.id})),
-      parallelTask(cb, () => Follow.count({user: u.id})),
+      parallelTask(() => Role.findOne({user: u.id})),
+      parallelTask(() => Follow.count({user: u.id})),
     ] : []),
   ], (err, results) => {
     cb(null, Object.assign({}, u, {
@@ -201,6 +226,23 @@ function populateRoleUser(r, cb) {
   } else cb(null, r)
 }
 
-function parallelTask(cb, task) {
+function populateLikeMengliao(like, cb) {
+  const m = like.mengliao
+  async.parallel([
+    parallelTask(() => Role.findOne({id: m.authorRole})),
+    parallelTask(() => MengliaoContent.find({mengliao: m.id})),
+    parallelTask(() => Like.count({mengliao: m.id})),
+    parallelTask(() => Comment.count({mengliao: m.id})),
+  ], (err, results) => {
+    cb(null, Object.assign({}, m, {
+      authorRole: results[0],
+      contents: results[1],
+      nLike: results[2],
+      nComment: results[3],
+    }))
+  })
+}
+
+function parallelTask(task) {
   return cb => task().then(_.partial(cb, null))
 }
