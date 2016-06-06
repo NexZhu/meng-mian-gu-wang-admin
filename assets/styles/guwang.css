@@ -314,10 +314,10 @@ a {
   float: right;
   padding-right: 70px;
   margin-top: 30px;
-  margin-bottom: 25px;
-  position: absolute;
+  margin-bottom: 50px;
+  /*position: absolute;
   bottom: 30px;
-  left: 50%;
+  left: 50%;*/
 }
 
 .ystz {
@@ -491,7 +491,7 @@ a {
 
 .mengliao_ul {
   padding-top: 20px;
-  min-height: 400px;
+  min-height: 520px;
 }
 
 .mengliao_nav, .putongyonghu_nav, .guanzhu_nav, .mengliaoxiangqing_nav, .lishi_nav {
@@ -854,7 +854,9 @@ a {
 .dianzan_list {
   width: 1040px;
   background: #fff;
-  min-height: 400px;
+  height: auto;
+  padding-bottom: 30px;
+  overflow: hidden;
 }
 
 .dianzan_gs {
@@ -1090,7 +1092,7 @@ a {
 
 .lishi_info {
   margin-top: 30px;
-  min-height: 400px;
+  min-height: 520px;
 }
 
 .lishi_list {
@@ -1154,6 +1156,8 @@ a {
 .xg {
   background: #fff;
   color: #666;
+  height: 740px !important;
+  overflow: auto !important;
   padding-left: 20px;
 }
 
@@ -1209,6 +1213,7 @@ a {
 
 .soso_info {
   width: 1040px;
+  height: 530px;
   line-height: 40px;
   border: 1px solid #D8D8D8;
   text-align: center;
