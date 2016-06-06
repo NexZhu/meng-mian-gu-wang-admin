@@ -45,11 +45,15 @@ function create(__helpers) {
       escapeXml(u.role ? u.role.name : "无") +
       "</span></p></div><div class=\"head_lists\"><p>opendid/手机：<span>" +
       escapeXml((u.qq || u.wechat) || u.mobile) +
-      "</span></p><p>unionid：<span>无</span></p></div></div><div class=\"tas clear\"><h3>其他信息</h3><div class=\"rests\"><div class=\"ta\"><span class=\"gz\">TA关注的人</span><span class=\"rs\"><a href=\"putongyonghu_xiangqing_guanzhu.html\">" +
+      "</span></p><p>unionid：<span>无</span></p></div></div><div class=\"tas clear\"><h3>其他信息</h3><div class=\"rests\"><div class=\"ta\" onclick=\"window.location.href = &#39;/user/following?id=" +
+      escapeXmlAttr(u.id) +
+      "&#39;\"><span class=\"gz\">TA关注的人</span><span class=\"rs\">" +
       escapeXml(u.nFollowing) +
-      " 〉</a> </span></div><div class=\"ta\"><span class=\"gz\">TA赞过的猛料</span><span class=\"rs\"><a href=\"putongyonghu_xiangqing_mengliao.html\">" +
+      " 〉</span></div><div class=\"ta\" onclick=\"window.location.href = &#39;/user/like?id=" +
+      escapeXmlAttr(u.id) +
+      "&#39;\"><span class=\"gz\">TA赞过的猛料</span><span class=\"rs\">" +
       escapeXml(u.nLike) +
-      " 〉</a> </span></div></div></div></div></div></div></div></div></section><footer class=\"footer\">Copyright © 2016 蒙面股王</footer></div></body></html>");
+      " 〉</span></div></div></div></div></div></div></div></div></section><footer class=\"footer\">Copyright © 2016 蒙面股王</footer></div></body></html>");
   };
 }
 

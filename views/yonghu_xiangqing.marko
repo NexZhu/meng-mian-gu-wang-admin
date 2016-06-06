@@ -60,15 +60,13 @@
               <div class="tas clear">
                 <h3>其他信息</h3>
                 <div class="rests">
-                  <div class="ta">
+                  <div class="ta" onclick="window.location.href = '/user/following?id=${u.id}'">
                     <span class="gz">TA关注的人</span>
-                    <span class="rs"><a
-                      href="putongyonghu_xiangqing_guanzhu.html">${u.nFollowing} 〉</a> </span>
+                    <span class="rs">${u.nFollowing} 〉</span>
                   </div>
-                  <div class="ta">
+                  <div class="ta" onclick="window.location.href = '/user/like?id=${u.id}'">
                     <span class="gz">TA赞过的猛料</span>
-                    <span class="rs"><a
-                      href="putongyonghu_xiangqing_mengliao.html">${u.nLike} 〉</a> </span>
+                    <span class="rs">${u.nLike} 〉</span>
                   </div>
                 </div>
               </div>

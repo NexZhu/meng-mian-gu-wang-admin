@@ -76,9 +76,34 @@ module.exports = {
           user,
           module: mod,
           sideBar,
-          selected: type === 'card' ? 'pukepaiyonghu' : 'putongyonghu',
+          selected: type === 'putongyonghu',
         }, {view: 'yonghu_xiangqing'})
       })
+    })
+  },
+  following: function following(req, res) {
+    const
+      id   = req.param('id'),
+      page = req.param('page') || 1
+
+    Follow.count({follower: id}).then(nFollow => {
+      Follow.find({
+        follower: id,
+        skip: 15 * (page - 1),
+        limit: 15,
+      }).populate('user').then(_.partialRight(async.map, (f, cb) => {
+        populateUser(f.user, true, cb)
+      }, (err, users) => {
+        res.ok({
+          id,
+          users,
+          page,
+          nPage: nPage(nFollow),
+          module: mod,
+          sideBar,
+          selected: 'putongyonghu',
+        }, {view: 'yonghu_guanzhu'})
+      }))
     })
   },
   restrict: function restricted(req, res) {
@@ -148,22 +173,22 @@ module.exports = {
 
 function populateUser(u, detail, cb) {
   async.parallel([
-    parallelTask(cb, () => Follow.count({user: u.id})),
+    parallelTask(cb, () => Follow.count({follower: u.id})),
     parallelTask(cb, () => Like.count({user: u.id})),
+    parallelTask(cb, () => Mengliao.count({author: u.id})),
     ...(detail ? [
       parallelTask(cb, () => Role.findOne({user: u.id})),
-    ] : [
-      parallelTask(cb, () => Mengliao.count({author: u.id})),
-    ]),
+      parallelTask(cb, () => Follow.count({user: u.id})),
+    ] : []),
   ], (err, results) => {
     cb(null, Object.assign({}, u, {
       nFollowing: results[0],
       nLike: results[1],
-    }, detail ? {
-      role: results[2],
-    } : {
       nMengliao: results[2],
-    }))
+    }, detail ? {
+      role: results[3],
+      nFollower: results[4],
+    } : {}))
   })
 }
 
