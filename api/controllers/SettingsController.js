@@ -22,6 +22,12 @@ module.exports = {
       selected: 'push',
     }, {view: 'tuisong'})
   },
+  modifyRestrictMessage: function modifyRestrictMessage(req, res) {
+    const {message} = req.body
+    AdminConfig.update({name: 'restrict_message'}, {value: message}).then(()=> {
+      res.end('1')
+    })
+  },
   password: function password(req, res) {
     res.ok({
       module: mod,

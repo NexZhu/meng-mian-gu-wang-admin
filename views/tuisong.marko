@@ -32,8 +32,8 @@
           <div class="jy">
             <form action="">
               <span>禁言消息提醒</span>
-              <input type="text" class="texts"/>
-              <input type="submit" value="提交" class="tijiao"/>
+              <input id="restrict-message" type="text" class="texts"/>
+              <input id="modify-btn" type="button" value="提交" class="tijiao"/>
             </form>
           </div>
         </div>
@@ -44,5 +44,16 @@
     Copyright © 2016 蒙面股王
   </footer>
 </div>
+<script>
+  $('#modify-btn').click(function() {
+    if ($('#restrict-message').val() === '') alert("禁言消息不能为空")
+    else $.post('/settings/modifyRestrictMessage', {
+      message: $('#restrict-message').val()
+    }).done(function(data) {
+      if (data === '0') alert('修改失败')
+      else alert('修改成功')
+    })
+  })
+</script>
 </body>
 </html>
