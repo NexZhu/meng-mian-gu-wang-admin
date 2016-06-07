@@ -54,4 +54,5 @@ module.exports.policies = {
   'content/LikeController': 'sessionAuth',
   'content/JubaoController': 'sessionAuth',
   'UserController': 'sessionAuth',
+  'SettingsController': 'sessionAuth',
 }
