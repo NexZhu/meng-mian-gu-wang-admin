@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-  tableName: '涨讯',
+  tableName: '系统消息',
   attributes: {
     time: {
       type: 'datetime',

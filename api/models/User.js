@@ -40,6 +40,10 @@ module.exports = {
       collection: 'role',
       via: 'user',
     },
+    pushId: {
+      type: 'string',
+      columnName: '极光ID',
+    },
     mengliaos: {
       collection: 'mengliao',
       via: 'author',

@@ -136,8 +136,25 @@ module.exports = {
       id         = req.param('id'),
       restricted = req.param('restricted')
 
-    User.update({id}, {restricted: restricted}).then(u => {
-      res.redirect(req.get('referer'))
+    User.findOne({id}).then(u => {
+      u.restricted = restricted
+      u.save().then(() => {
+        res.redirect(req.get('referer'))
+        if (restricted === '0') {
+          AdminConfig.findOne({name: 'restrict_message'}).then(({value}) => {
+            SystemMessage.create({
+              time: new Date(),
+              mengliao: null,
+              type: 'xitong',
+              content: value,
+              read: '0',
+              pushId: u.pushId,
+              status: '1',
+              user: u.id,
+            })
+          })
+        }
+      })
     })
   },
   assign: function assign(req, res) {
