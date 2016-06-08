@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" href="/images/new.ico"/>
+  <!--STYLES-->
+  <link rel="stylesheet" href="/styles/reset.css">
+  <link rel="stylesheet" href="/styles/guwang.css">
+  <!--STYLES END-->
+  <!--SCRIPTS-->
+  <script src="/js/dependencies/jquery-1.11.0.js"></script>
+  <script src="/js/guwang_houtai.js"></script>
+  <!--SCRIPTS END-->
+  <title>蒙面股王后台管理系统</title>
+</head>
+<body>
+<div class="mengmianguwang">
+  <include(data.sideBar) selected='${data.selected}' />
+  <include('./header.marko') module='${data.module}' />
+  <section class="section">
+    <div class="mengliaoguanli">
+      <div class="content">
+        <div class="mengliao">
+          <div class="handle dz_fanhui">
+            <ul>
+              <li class="pinglun"><a href="#"
+                  onclick="if (window.toPush) push(window.toPush)">
+                确认推送
+              </a></li>
+              <li><a href="javascript:history.back(-1)">返回</a></li>
+            </ul>
+          </div>
+          <div class="jy">
+            <form action="/settings/customPush">
+              <input name="search" type="text" placeholder="  输入昵称、关键词搜索猛料" class="texts"/>
+              <input type="submit" value="搜索" class="tijiao"/>
+            </form>
+
+            <div class="mengliao_info clear tuisong_sousuo">
+              <div class="mengliao_ul bor">
+                <ul class="mengliao_nav">
+                  <li>发布者</li>
+                  <li>发布时间</li>
+                  <li>点赞数</li>
+                  <li>评论数</li>
+                  <li class="neirong">内容概要</li>
+                  <li>选中</li>
+                </ul>
+                <ul for(m in data.mengliaos) class="mengliao_list odd">
+                  <li>${m.authorRole.name}</li>
+                  <li><span>${m.time.toLocaleString()}</span></li>
+                  <li>${m.nLike}</li>
+                  <li>${m.nComment}</li>
+                  <li if(m.contents.length) class="neirong">
+                    ${m.contents[0].content}
+                  </li>
+                  <li>
+                    <input type="radio" name="xz" onclick="window.toPush=${m.id}"/>
+                  </li>
+                </ul>
+              </div>
+              <div class="tiaozhuan">
+                <div class="page-yeshu">
+                  <var search=data.search page=parseInt(data.page) nPage=data.nPage/>
+                  <a href="${page === 1 ? '#' : ('/settings/customPush?search=${search}&page=' + (page - 1))}">
+                    <span>前一页</span>
+                  </a>
+                  <a href="${page === nPage ? '#' : ('/settings/customPush?search=${search}&page=' + (parseInt(page) + 1))}">
+                    <span>后一页</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer class="footer">
+    Copyright © 2016 蒙面股王
+  </footer>
+</div>
+<script>
+  function push(id) {
+    $.get('/settings/confirmCustomPush?id=' + id)
+      .done(function (data) {
+        if (data === '1') alert('推送成功')
+      })
+  }
+</script>
+</body>
+</html>
