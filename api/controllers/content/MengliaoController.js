@@ -17,13 +17,12 @@ const
 module.exports = {
   list: function list(req, res) {
     const
-      page   = req.param('page') || 1,
-      search = req.param('search') || ''
+      search = req.param('search') || '',
+      page   = req.param('page') || 1
+
 
     Mengliao.find({
       sort: 'id DESC',
-      /*skip: 15 * (page - 1),
-       limit: 15,*/
     }).populate('author').populate('authorRole')
       .then(_.partialRight(async.map, populateMengliaoList, (err, ms) => {
         ms = ms.filter(m => m.authorRole.name.includes(search)
