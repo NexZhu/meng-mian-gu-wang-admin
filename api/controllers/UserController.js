@@ -51,7 +51,6 @@ module.exports = {
               {mobile: {'contains': search}},
             ],
           })
-      console.log(criteria)
 
       User.count(criteria).then(nUser => {
         User.find(Object.assign({},
@@ -65,7 +64,7 @@ module.exports = {
             users,
             restricted,
             gender,
-            source,
+            // source,
             search,
             page,
             nPage: nPage(nUser),
