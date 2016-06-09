@@ -21,31 +21,34 @@
     <div class="mengliaoguanli">
       <div class="content">
         <div class="mengliao">
+          <var restricted=data.restricted gender=data.gender source=data.source search=data.search/>
           <div class="select">
             <div>
               <span>状态</span>
-              <select name="">
-                <option value="">全部</option>
-                <option value="">正常</option>
-                <option value="">禁言</option>
+              <select selected="1" id="restricted" name="" onchange="window.location.href = '/user/list?restricted=' + $('#restricted').val() + '&gender=${gender}&source=${source}'">
+                <option value="" selected="${restricted === '' ? 'selected' : ''}">全部</option>
+                <option value="1" selected="${restricted === '1' ? 'selected' : ''}">正常</option>
+                <option value="0" selected="${restricted === '0' ? 'selected' : ''}">禁言</option>
               </select>
             </div>
             <div>
               <span>性别</span>
-              <select name="">
-                <option value="">全部</option>
-                <option value="">正常</option>
-                <option value="">禁言</option>
+              <select id="gender" name="" onchange="window.location.href = '/user/list?restricted=${restricted}&gender=' + $('#gender').val() + '&source=${source}'">
+                <option value="" selected="${gender === '' ? 'selected' : ''}">全部</option>
+                <option value="男" selected="${gender === '男' ? 'selected' : ''}">男</option>
+                <option value="女" selected="${gender === '女' ? 'selected' : ''}">女</option>
+                <option value="保密" selected="${gender === '保密' ? 'selected' : ''}">保密</option>
               </select>
             </div>
-            <div>
+            <!--div>
               <span>来源</span>
-              <select name="">
-                <option value="">全部</option>
-                <option value="">正常</option>
-                <option value="">禁言</option>
+              <select id="source" name="" onchange="window.location.href = '/user/list?restricted=${restricted}&gender=${gender}&source=' + $('#source').val()">
+                <option value="" selected="${source === '' ? 'selected' : ''}">全部</option>
+                <option value="wechat" selected="${source === 'wechat' ? 'selected' : ''}">微信</option>
+                <option value="qq" selected="${source === 'qq' ? 'selected' : ''}">QQ</option>
+                <option value="mobile" selected="${source === 'mobile' ? 'selected' : ''}">手机</option>
               </select>
-            </div>
+            </div-->
           </div>
           <div class="search">
             <div class="sousuo">
@@ -89,7 +92,7 @@
               </ul>
             </div>
             <div class="tiaozhuan">
-              <var search=data.search page=parseInt(data.page) nPage=data.nPage/>
+              <var page=parseInt(data.page) nPage=data.nPage/>
                 <div class="page-yeshu">
                   <a href="/user/list?type=normal&search=${search}"><span>首页</span></a>
                   <a href="${page === 1 ? '#' : ('/user/list?type=normal&search=${search}&page=' + (page - 1))}">

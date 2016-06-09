@@ -38,22 +38,34 @@ module.exports = {
           }, {view: 'pukepaiyonghu'})
         }))
     } else {
-      User.count({
-        or: [
-          {name: {'contains': search}},
-          {mobile: {'contains': search}},
-        ],
-      }).then(nUser => {
-        User.find({
-          or: [
-            {name: {'contains': search}},
-            {mobile: {'contains': search}},
-          ],
-          skip: 15 * (page - 1),
-          limit: 15,
-        }).then(users => {
+      const
+        restricted   = req.param('restricted'),
+        gender   = req.param('gender'),
+        // source   = req.param('source'),
+        criteria = Object.assign({},
+          restricted ? {restricted} : {},
+          gender ? {gender} : {},
+          {
+            or: [
+              {name: {'contains': search}},
+              {mobile: {'contains': search}},
+            ],
+          })
+      console.log(criteria)
+
+      User.count(criteria).then(nUser => {
+        User.find(Object.assign({},
+          criteria,
+          {
+            skip: 15 * (page - 1),
+            limit: 15,
+          }
+        )).then(users => {
           res.ok({
             users,
+            restricted,
+            gender,
+            source,
             search,
             page,
             nPage: nPage(nUser),
@@ -80,7 +92,8 @@ module.exports = {
         }, {view: 'yonghu_xiangqing'})
       })
     })
-  },
+  }
+  ,
   following: function following(req, res) {
     const
       id   = req.param('id'),
@@ -105,7 +118,8 @@ module.exports = {
         }, {view: 'yonghu_guanzhu'})
       }))
     })
-  },
+  }
+  ,
   like: function like(req, res) {
     const
       id   = req.param('id'),
@@ -130,7 +144,8 @@ module.exports = {
           }, {view: 'yonghu_mengliao'})
         }))
     })
-  },
+  }
+  ,
   restrict: function restricted(req, res) {
     const
       id         = req.param('id'),
@@ -156,7 +171,8 @@ module.exports = {
         }
       })
     })
-  },
+  }
+  ,
   assign: function assign(req, res) {
     const
       id     = req.param('id'),
@@ -193,7 +209,8 @@ module.exports = {
         })
       })
     })
-  },
+  }
+  ,
   confirmAssign: function confirmAssign(req, res) {
     const
       role = req.param('role'),
@@ -204,13 +221,15 @@ module.exports = {
         res.redirect('/user/list?type=card')
       })
     })
-  },
+  }
+  ,
   unassign: function unassign(req, res) {
     const id = req.param('id')
     Role.update({user: id}, {user: null}).then(u => {
       res.redirect(req.get('referer'))
     })
-  },
+  }
+  ,
 }
 
 function populateUser(u, detail, cb) {

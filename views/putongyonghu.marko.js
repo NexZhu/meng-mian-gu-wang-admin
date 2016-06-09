@@ -5,12 +5,12 @@ function create(__helpers) {
       escapeXml = __helpers.x,
       loadTemplate = __helpers.l,
       __header = loadTemplate(require.resolve("./header.marko")),
+      escapeXmlAttr = __helpers.xa,
       attr = __helpers.a,
-      forEach = __helpers.f,
-      escapeXmlAttr = __helpers.xa;
+      forEach = __helpers.f;
 
   return function render(data, out) {
-    out.w("<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><link rel=\"shortcut icon\" href=\"/images/new.ico\"><link rel=\"stylesheet\" href=\"/styles/reset.css\"> <link rel=\"stylesheet\" href=\"/styles/guwang.css\"> <script src=\"/js/dependencies/jquery-1.11.0.js\"></script> <script src=\"/js/guwang_houtai.js\"></script> <title>蒙面股王后台管理系统</title></head><body><div class=\"mengmianguwang\">");
+    out.w("<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><link rel=\"shortcut icon\" href=\"/images/new.ico\"><link rel=\"stylesheet\" href=\"/styles/reset.css\"><link rel=\"stylesheet\" href=\"/styles/guwang.css\"><script src=\"/js/dependencies/jquery-1.11.0.js\"></script><script src=\"/js/guwang_houtai.js\"></script><title>蒙面股王后台管理系统</title></head><body><div class=\"mengmianguwang\">");
 
     data.sideBar.render({
         selected: data.selected
@@ -20,7 +20,48 @@ function create(__helpers) {
         module: data.module
       }, out);
 
-    out.w("<section class=\"section\"><div class=\"mengliaoguanli\"><div class=\"content\"><div class=\"mengliao\"><div class=\"select\"><div><span>状态</span><select name><option value>全部</option><option value>正常</option><option value>禁言</option></select></div><div><span>性别</span><select name><option value>全部</option><option value>正常</option><option value>禁言</option></select></div><div><span>来源</span><select name><option value>全部</option><option value>正常</option><option value>禁言</option></select></div></div><div class=\"search\"><div class=\"sousuo\"><form action=\"/user/list\"><input name=\"type\" type=\"text\" value=\"normal\" style=\"display: none\"><input name=\"search\" type=\"search\"" +
+    out.w("<section class=\"section\"><div class=\"mengliaoguanli\"><div class=\"content\"><div class=\"mengliao\">");
+
+    var restricted = data.restricted,
+        gender = data.gender,
+        source = data.source,
+        search = data.search;
+
+    out.w("<div class=\"select\"><div><span>状态</span><select selected=\"1\" id=\"restricted\" name onchange=\"window.location.href = &#39;/user/list?restricted=&#39; + $(&#39;#restricted&#39;).val() + &#39;&amp;gender=" +
+      escapeXmlAttr(gender) +
+      "&amp;source=" +
+      escapeXmlAttr(source) +
+      "&#39;\"><option value" +
+      attr("selected", restricted === "" ? "selected" : "") +
+      ">全部</option><option value=\"1\"" +
+      attr("selected", restricted === "1" ? "selected" : "") +
+      ">正常</option><option value=\"0\"" +
+      attr("selected", restricted === "0" ? "selected" : "") +
+      ">禁言</option></select></div><div><span>性别</span><select id=\"gender\" name onchange=\"window.location.href = &#39;/user/list?restricted=" +
+      escapeXmlAttr(restricted) +
+      "&amp;gender=&#39; + $(&#39;#gender&#39;).val() + &#39;&amp;source=" +
+      escapeXmlAttr(source) +
+      "&#39;\"><option value" +
+      attr("selected", gender === "" ? "selected" : "") +
+      ">全部</option><option value=\"男\"" +
+      attr("selected", gender === "男" ? "selected" : "") +
+      ">男</option><option value=\"女\"" +
+      attr("selected", gender === "女" ? "selected" : "") +
+      ">女</option><option value=\"保密\"" +
+      attr("selected", gender === "保密" ? "selected" : "") +
+      ">保密</option></select></div><div><span>来源</span><select id=\"source\" name onchange=\"window.location.href = &#39;/user/list?restricted=" +
+      escapeXmlAttr(restricted) +
+      "&amp;gender=" +
+      escapeXmlAttr(gender) +
+      "&amp;source=&#39; + $(&#39;#source&#39;).val()\"><option value" +
+      attr("selected", source === "" ? "selected" : "") +
+      ">全部</option><option value=\"wechat\"" +
+      attr("selected", source === "wechat" ? "selected" : "") +
+      ">微信</option><option value=\"qq\"" +
+      attr("selected", source === "qq" ? "selected" : "") +
+      ">QQ</option><option value=\"mobile\"" +
+      attr("selected", source === "mobile" ? "selected" : "") +
+      ">手机</option></select></div></div><div class=\"search\"><div class=\"sousuo\"><form action=\"/user/list\"><input name=\"type\" type=\"text\" value=\"normal\" style=\"display: none\"><input name=\"search\" type=\"search\"" +
       attr("value", data.search) +
       " class=\"text\" placeholder=\"输入昵称、关键词等\"><input type=\"submit\" class=\"buttom\" value=\"搜索\" style=\"margin-left: 3px\"></form></div></div><div class=\"mengliao_info clear\"><div class=\"mengliao_ul\"><ul class=\"putongyonghu_nav\"><li class=\"nickname\">昵称</li><li>来源</li><li>opendid</li><li>unionid</li><li>性别</li><li>地区</li><li>状态</li><li>操作</li></ul>");
 
@@ -50,8 +91,7 @@ function create(__helpers) {
 
     out.w("</div><div class=\"tiaozhuan\">");
 
-    var search = data.search,
-        page = parseInt(data.page),
+    var page = parseInt(data.page),
         nPage = data.nPage;
 
     out.w("<div class=\"page-yeshu\"><a href=\"/user/list?type=normal&amp;search=" +
